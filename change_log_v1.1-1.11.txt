@@ -1,0 +1,29 @@
+Version of this distribution: 1.11
+
+#########################
+# Change summary	#	
+#########################
+1. Updated a number of classes for performance tweak. Now extraction should be much faster.
+Credits to pmclachlan, see related issue: https://code.google.com/p/jatetoolkit/issues/detail?id=2&can=1
+
+2. Fixed a bug causing class GlobalIndexWriterHSQL to not genrate the correct maps term2doc, doc2term and term2var.
+Credits to David.Scarlatti, see related issue: https://code.google.com/p/jatetoolkit/issues/detail?id=3
+
+#########################
+# Details		#
+#########################
+
+* package uk.ac.shef.dcs.oak.jate.core.algorithm
+Affected Classes:
+	TFIDFAlgorithm
+	GlossExAlgorithm
+	RIDFAlgorithm
+	TermExAlgorithm
+	WeirdnessAlgorithm	
+
+* package uk.ac.shef.dcs.oak.jate.core.feature.indexer
+Affected Classes: GlobalIndexMe
+	
+
+* package uk.ac.shef.dcs.oak.jate.core.feature
+Affected Classes: FeatureBuilderTermNest

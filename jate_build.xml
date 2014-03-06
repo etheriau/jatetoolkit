@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jate_googlecode" default="all">
+  
+  
+  <property file="jate_build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.apk"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.ane"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
+  <path id="jdk.classpath.1.6">
+    <fileset dir="${jdk.home.1.6}">
+      <include name="jre/lib/alt-rt.jar"/>
+      <include name="jre/lib/alt-string.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.6}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.apache-opennlp-1.51.classpath">
+    <pathelement location="${basedir}/libs/apache-opennlp-1.51/jwnl-1.3.3.jar"/>
+    <pathelement location="${basedir}/libs/apache-opennlp-1.51/opennlp-maxent-3.0.1-incubating.jar"/>
+    <pathelement location="${basedir}/libs/apache-opennlp-1.51/opennlp-tools-1.5.1-incubating.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Jate_googlecode -->
+  
+  <dirname property="module.jate_googlecode.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.jate_googlecode" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.jate_googlecode" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.jate_googlecode" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.jate_googlecode" value="${compiler.args}"/>
+  
+  <property name="jate_googlecode.output.dir" value="${module.jate_googlecode.basedir}/out/production/Jate_googlecode"/>
+  <property name="jate_googlecode.testoutput.dir" value="${module.jate_googlecode.basedir}/out/test/Jate_googlecode"/>
+  
+  <path id="jate_googlecode.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jate_googlecode.module.production.classpath">
+    <path refid="${module.jdk.classpath.jate_googlecode}"/>
+    <pathelement location="${basedir}/libs/wit-commons/wit-commons.jar"/>
+    <path refid="library.apache-opennlp-1.51.classpath"/>
+    <pathelement location="${basedir}/libs/dragon/dragontool.jar"/>
+    <pathelement location="${basedir}/libs/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+  </path>
+  
+  <path id="jate_googlecode.runtime.production.module.classpath">
+    <pathelement location="${jate_googlecode.output.dir}"/>
+    <pathelement location="${basedir}/libs/wit-commons/wit-commons.jar"/>
+    <path refid="library.apache-opennlp-1.51.classpath"/>
+    <pathelement location="${basedir}/libs/dragon/dragontool.jar"/>
+    <pathelement location="${basedir}/libs/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+  </path>
+  
+  <path id="jate_googlecode.module.classpath">
+    <path refid="${module.jdk.classpath.jate_googlecode}"/>
+    <pathelement location="${jate_googlecode.output.dir}"/>
+    <pathelement location="${basedir}/libs/wit-commons/wit-commons.jar"/>
+    <path refid="library.apache-opennlp-1.51.classpath"/>
+    <pathelement location="${basedir}/libs/dragon/dragontool.jar"/>
+    <pathelement location="${basedir}/libs/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+  </path>
+  
+  <path id="jate_googlecode.runtime.module.classpath">
+    <pathelement location="${jate_googlecode.testoutput.dir}"/>
+    <pathelement location="${jate_googlecode.output.dir}"/>
+    <pathelement location="${basedir}/libs/wit-commons/wit-commons.jar"/>
+    <path refid="library.apache-opennlp-1.51.classpath"/>
+    <pathelement location="${basedir}/libs/dragon/dragontool.jar"/>
+    <pathelement location="${basedir}/libs/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jate_googlecode">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jate_googlecode">
+    <patternset refid="excluded.from.module.jate_googlecode"/>
+  </patternset>
+  
+  <path id="jate_googlecode.module.sourcepath">
+    <dirset dir="${module.jate_googlecode.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jate_googlecode" depends="compile.module.jate_googlecode.production,compile.module.jate_googlecode.tests" description="Compile module Jate_googlecode"/>
+  
+  <target name="compile.module.jate_googlecode.production" description="Compile module Jate_googlecode; production classes">
+    <mkdir dir="${jate_googlecode.output.dir}"/>
+    <javac destdir="${jate_googlecode.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jate_googlecode}/javac">
+      <compilerarg line="${compiler.args.jate_googlecode}"/>
+      <bootclasspath refid="jate_googlecode.module.bootclasspath"/>
+      <classpath refid="jate_googlecode.module.production.classpath"/>
+      <src refid="jate_googlecode.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jate_googlecode"/>
+    </javac>
+    
+    <copy todir="${jate_googlecode.output.dir}">
+      <fileset dir="${module.jate_googlecode.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jate_googlecode.tests" depends="compile.module.jate_googlecode.production" description="compile module Jate_googlecode; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.jate_googlecode" description="cleanup module">
+    <delete dir="${jate_googlecode.output.dir}"/>
+    <delete dir="${jate_googlecode.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.jate_googlecode" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.jate_googlecode" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.jate" value="${basedir}/out/artifacts/jate"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.jate.jar" value="${artifacts.temp.dir}/jate.jar"/>
+  </target>
+  
+  <target name="artifact.jate" depends="init.artifacts, compile.module.jate_googlecode" description="Build &#39;jate&#39; artifact">
+    <property name="artifact.temp.output.jate" value="${artifacts.temp.dir}/jate"/>
+    <mkdir dir="${artifact.temp.output.jate}"/>
+    <jar destfile="${temp.jar.path.jate.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${jate_googlecode.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.jate.jar}" tofile="${artifact.temp.output.jate}/jate.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.jate" description="Build all artifacts">
+    <mkdir dir="${artifact.output.jate}"/>
+    <copy todir="${artifact.output.jate}">
+      <fileset dir="${artifact.temp.output.jate}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
