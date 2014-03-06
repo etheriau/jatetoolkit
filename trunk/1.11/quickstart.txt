@@ -1,0 +1,24 @@
+Usage:
+
+[REQUIREMENT]
+Min. 512MB memory
+Java 1.5
+
+[GENERAL]
+
+NOTE: Please make sure the two property files in folder jate/src are copied to your compiled class folder before running
+the application. Also you may need to change the settings in jate.properties.
+
+
+java [memory_config] -classpath [all_jar_files] uk.ac.shef.wit.jate.test.[algorithm_testing_class] [path_to_corpus] [optional_reference_corpus_path] [path_to_output]
+
+The optional reference corpus path needs to specified when you use an algorithm that requires a reference corpus, such
+as Weirdness and GlossEx and TermEx. An example reference corpus - the BNC - is distributed with this tool, at "nlp_resources/bnc_unifrqs.normal".
+
+For default folder structure, i.e., after unzip, do the following example:
+Example:
+
+java -Xmx512m -classpath "[point to all jars under /libs and /dist]" uk.ac.shef.wit.jate.Test.TestFrequency test/example test/output
+
+
+For a guide on how to use JATE, see http://code.google.com/p/jatetoolkit/wiki/JATEIntro

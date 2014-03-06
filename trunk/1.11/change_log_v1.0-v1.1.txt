@@ -1,0 +1,57 @@
+Version of this distribution: 1.1
+
+#########################
+# Change summary	#	
+#########################
+1. Added two more algorithms: Average corpus term frequency, RIDF
+2. Changed method signitures in some classes; package nameings etc.
+
+#########################
+# Details		#
+#########################
+
+* package uk.ac.shef.dcs.oak.jate.core.algorithm
+Added Classes:
+	AverageCorpusTFAlgorithm
+	AverageCorpusTFFeatureWrapper
+	RIDFAlgorithm
+	RIDFFeatureWrapper
+
+* package uk.ac.shef.dcs.oak.jate.core.npextractor
+Class: CandidateTermExtractor
+	A number of methods are changed from "protected" to "public static"
+	Method "protected String applyNPCharRemoval(String string)" now replaced by "public static String applyCharacterReplacement(String string, String pattern)"
+	Method "public static String[] applyNPSplitList(String string)" now replaced by "public static String[] applySplitList(String string)"
+	Method "protected String applyNPTrimStopwords(String in, StopList stop)" replaced by "public static String applyTrimStopwords(String string, StopList stop, Normalizer normalizer)"
+
+Class: WordExtractor
+	Added new variables to determine whether to remove stop words, or words that contain less than a minimum number of characters from the extracted words.
+	Added a new constructor to allow setting the above variables
+	
+
+* package uk.ac.shef.dcs.oak.jate
+Class: JATEProperties
+	Variable "public static final String NP_FILTER_PATTERN = "[^a-zA-Z0-9\\-]" " replaced by "public static final String TERM_CLEAN_PATTERN = "[^a-zA-Z0-9\\-]" "
+	Add variable "public static final String MULTITHREAD_COUNTER_NUMBERS", accesses the "jate.system.term.frequency.counter.multithread" variable in the property file.     
+	Variable "public static final String TERM_CANONICAL_2_VARIANTS_MAPING = "jate.system.term.variant_mapping" deleted due to no-use
+
+
+*package uk.ac.shef.dcs.oak.jate.core.feature;
+Deleted classes due to no-use:
+	TermFreqCounterMultiThreadHelper
+	TermFreqCounterThread
+	
+
+* "package uk.ac.shef.dcs.oak.jate.debug" renamed to "package uk.ac.shef.dcs.oak.jate.test"
+
+* package uk.ac.shef.dcs.oak.jate.test
+Class: AlgorithmTester
+	Method "public void execute(GlobalIndex index) throws JATEException, IOException" changed to "public void execute(GlobalIndex index, String outFolder) throws JATEException, IOException", to allow custom setting of output directory
+	More comments added to provide detailed explanation	
+
+Added Class: TestAverageCorpusTF
+Added Class: TestRIDF
+
+* package uk.ac.shef.dcs.oak.jate.util.counter
+Class: TermFreqCounter
+	Method "public int count(String context, Set<String> terms, boolean caseSensitive)" changed to "public int count(String context, Set<String> terms)". Counting is always case-sensitive. For case-insensitive counting, the input params should be pre-processed accordingly

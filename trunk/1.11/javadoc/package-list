@@ -1,0 +1,14 @@
+uk.ac.shef.dcs.oak.jate
+uk.ac.shef.dcs.oak.jate.core.algorithm
+uk.ac.shef.dcs.oak.jate.core.feature
+uk.ac.shef.dcs.oak.jate.core.feature.indexer
+uk.ac.shef.dcs.oak.jate.core.nlptools
+uk.ac.shef.dcs.oak.jate.core.npextractor
+uk.ac.shef.dcs.oak.jate.core.voting
+uk.ac.shef.dcs.oak.jate.io
+uk.ac.shef.dcs.oak.jate.model
+uk.ac.shef.dcs.oak.jate.test
+uk.ac.shef.dcs.oak.jate.util
+uk.ac.shef.dcs.oak.jate.util.control
+uk.ac.shef.dcs.oak.jate.util.counter
+uk.ac.shef.wit.commons

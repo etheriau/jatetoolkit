@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jate">
+    <output-path>$PROJECT_DIR$/out/artifacts/jate</output-path>
+    <root id="archive" name="jate.jar">
+      <element id="module-output" name="Jate_googlecode" />
+    </root>
+  </artifact>
+</component>
