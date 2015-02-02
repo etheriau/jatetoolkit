@@ -13,6 +13,7 @@ import uk.ac.shef.dcs.oak.jate.core.npextractor.WordExtractor;
 import uk.ac.shef.dcs.oak.jate.io.ResultWriter2File;
 import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Term;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 import uk.ac.shef.dcs.oak.jate.util.counter.WordCounter;
@@ -62,7 +63,7 @@ public class AlgorithmTester {
                 //##########################################################
 
                 //stop words and lemmatizer are used for processing the extraction of candidate terms
-				StopList stop = new StopList(true);
+				IStopList stop = new StopList(true);
 				Lemmatizer lemmatizer = new Lemmatizer();
 
                 //Three CandidateTermExtractor are implemented:

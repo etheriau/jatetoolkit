@@ -1,10 +1,9 @@
 package uk.ac.shef.dcs.oak.jate.core.npextractor;
 
 import uk.ac.shef.dcs.oak.jate.JATEException;
-import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
-import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 
 import java.util.Map;
@@ -21,7 +20,7 @@ import java.util.Set;
 
 
 public abstract class CandidateTermExtractor {
-	protected StopList _stoplist;
+	protected IStopList _stoplist;
 	protected Normalizer _normaliser;
 
 	/**
@@ -123,7 +122,7 @@ public abstract class CandidateTermExtractor {
      * @param stop
      * @return null if the string is a stopword; otherwise the normalized string
      */
-    public static String applyTrimStopwords(String string, StopList stop, Normalizer normalizer) {
+    public static String applyTrimStopwords(String string, IStopList stop, Normalizer normalizer) {
         //check the entire string first (e.g., "e. g. " and "i. e. " which will fail the following checks
         if(stop.isStopWord(normalizer.normalize(string).replaceAll("\\s+","").trim()))
             return null;

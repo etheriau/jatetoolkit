@@ -6,8 +6,8 @@ import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.nlptools.NLPToolsControllerOpenNLP;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Document;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
-import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 import java.io.IOException;
 import java.util.*;
@@ -38,7 +38,7 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
      * @param normaliser
      * @throws IOException
      */
-    public NounPhraseExtractorOpenNLP(StopList stop, Normalizer normaliser) throws IOException {
+    public NounPhraseExtractorOpenNLP(IStopList stop, Normalizer normaliser) throws IOException {
         _stoplist = stop;
         _normaliser = normaliser;
     }
