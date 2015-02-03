@@ -469,6 +469,31 @@ public class GlobalIndexMem extends GlobalIndex {
     public int sizeDocHasTerms(int d) {
         return retrieveTermCanonicalInDoc(d).size();
     }
+    
+  /*  public void updateVariantsOfTermCanonical(String termCanonical, Set<String> variants_term_additional){
+    	Set<String> variants = retrieveVariantsOfTermCanonical(termCanonical);
+    	if(variants_term_additional.size()>0){
+    		variants.addAll(variants_term_additional);
+    	}
+    	
+    }
+    */
+    
+    public void updateIndexTermWithVariant(Map<String, Set<String>> additional_variants_map) {
+        for (Map.Entry<String, Set<String>> e : additional_variants_map.entrySet()) {
+            int termid = indexTermCanonical(e.getKey());
+
+            Set<Integer> variants = _term2Variants.get(termid);
+            
+            for (String v : e.getValue()) {
+                int varid = indexTermVariant(v);
+                variants.add(varid);
+                _variant2term.put(varid, termid);
+            }
+            _term2Variants.put(termid, variants);
+        }
+    }
+
 
 
 }

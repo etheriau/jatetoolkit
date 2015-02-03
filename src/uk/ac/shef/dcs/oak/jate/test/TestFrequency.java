@@ -12,7 +12,6 @@ import uk.ac.shef.dcs.oak.jate.core.npextractor.NounPhraseExtractorOpenNLP;
 import uk.ac.shef.dcs.oak.jate.io.ResultWriter2File;
 import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Term;
-import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 import uk.ac.shef.dcs.oak.jate.util.counter.TermFreqCounter;
@@ -68,7 +67,7 @@ public class TestFrequency {
 			//creates instances of required processors and resources
 
 			//stop word list
-			IStopList stop = new StopList(true);
+			StopList stop = new StopList(true);
 
 			//lemmatiser
 			Lemmatizer lemmatizer = new Lemmatizer();
@@ -85,6 +84,7 @@ public class TestFrequency {
 			GlobalIndexBuilderMem builder = new GlobalIndexBuilderMem();
 			//build the global resource index
 			GlobalIndexMem termDocIndex = builder.build(new CorpusImpl(args[0]), npextractor);
+			
 
 			//build a feature store required by the tfidf algorithm, using the processors instantiated above
 			FeatureCorpusTermFrequency termCorpusFreq =

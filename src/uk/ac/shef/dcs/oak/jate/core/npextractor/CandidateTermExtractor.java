@@ -2,8 +2,8 @@ package uk.ac.shef.dcs.oak.jate.core.npextractor;
 
 import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
-import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
+import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Set;
 
 
 public abstract class CandidateTermExtractor {
-	protected IStopList _stoplist;
+	protected StopList _stoplist;
 	protected Normalizer _normaliser;
 
 	/**
@@ -88,17 +88,20 @@ public abstract class CandidateTermExtractor {
      * @param string input string
      * @return individual strings seperated by "and", "or" and ","
      */
+    
+    //Code modification begins : the second and third 'if' changed to 'else if'
+    
     public static String[] applySplitList(String string) {
         StringBuilder sb = new StringBuilder();
         if (string.indexOf(" and ") != -1) {
             String[] parts = string.split("\\band\\b");
             for (String s : parts) sb.append(s.trim() + "|");
         }
-        if (string.indexOf(" or ") != -1) {
+        else if (string.indexOf(" or ") != -1) {
             String[] parts = string.split("\\bor\\b");
             for (String s : parts) sb.append(s.trim() + "|");
         }
-        if (string.indexOf(",") != -1) {
+        else if (string.indexOf(",") != -1) {
             if (!containsDigit(string)) {
                 String[] parts = string.split("\\,");
                 for (String s : parts) sb.append(s.trim() + "|");
@@ -110,6 +113,8 @@ public abstract class CandidateTermExtractor {
         if (v.endsWith("|")) v = v.substring(0, v.lastIndexOf("|"));
         return v.toString().split("\\|");
     }
+    
+    //code modification ends
 
 
     /**
@@ -122,9 +127,11 @@ public abstract class CandidateTermExtractor {
      * @param stop
      * @return null if the string is a stopword; otherwise the normalized string
      */
-    public static String applyTrimStopwords(String string, IStopList stop, Normalizer normalizer) {
+    public static String applyTrimStopwords(String string, StopList stop, Normalizer normalizer) {
         //check the entire string first (e.g., "e. g. " and "i. e. " which will fail the following checks
-        if(stop.isStopWord(normalizer.normalize(string).replaceAll("\\s+","").trim()))
+       // String s = normalizer.normalize(string);
+    	
+    	if(stop.isStopWord(normalizer.normalize(string).replaceAll("\\s+","").trim()))
             return null;
 
         String[] e = string.split("\\s+");

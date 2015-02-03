@@ -1,5 +1,10 @@
 package uk.ac.shef.dcs.oak.jate.core.feature;
 
+import java.util.Iterator;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndex;
 import org.apache.log4j.Logger;
@@ -41,22 +46,51 @@ public class FeatureBuilderTermNest extends AbstractFeatureBuilder {
         _logger.info("About to build FeatureTermNest...");
         int counter = 0;
         for (String np : index.getTermsCanonical()) {
-            /*for (String anp : index.getTermsCanonical()) {
+          
+        	/*for (String anp : index.getTermsCanonical()) {
                    if (anp.length() <= np.length()) continue;
                    if (anp.indexOf(" " + np) != -1 || anp.indexOf(np + " ") != -1) //e.g., np=male, anp=the male
                        _feature.termNestIn(np, anp);
                }
-               counter++;*/
+               counter++;
 
-            //  Expensive string operations pulled out for performance of the inner loop
+            Expensive string operations pulled out for performance of the inner loop
             final String spacePrefixed = " " + np;
-            final String spaceSuffixed = np + " ";
-
-            for (String anp : index.getTermsCanonical()) {
+            final String spaceSuffixed = np + " "; */
+        	
+        	
+        	/*modified code begins */
+        	
+        	Set<String> variants_np = index.retrieveVariantsOfTermCanonical(np);
+        	variants_np.add(np);
+        	
+        	 StringBuilder pattern = new StringBuilder("\\b(");
+             Iterator<String> it = variants_np.iterator();
+             while(it.hasNext())
+             {
+             	pattern.append(it.next()+ "|");                        		
+             }
+             
+             pattern.deleteCharAt(pattern.length()-1);
+             pattern.append(")\\b");
+             
+             Pattern p = Pattern.compile(pattern.toString());
+        	 
+        	 
+        	/*modified code ends*/ 
+            
+        	
+        	for (String anp : index.getTermsCanonical()) {
                 if (anp.length() <= np.length()) continue;
-                if (anp.indexOf(spacePrefixed) != -1 || anp.indexOf(spaceSuffixed) != -1) //e.g., np=male, anp=the male
-                    _feature.termNestIn(np, anp);
-            }
+                //modified code begins              
+               
+                Matcher m = p.matcher(anp);
+
+                if (m.find()) {
+                	_feature.termNestIn(np, anp);                	
+                }
+                
+        	}
             counter++;
 
 
@@ -65,3 +99,61 @@ public class FeatureBuilderTermNest extends AbstractFeatureBuilder {
         return _feature;
     }
 }
+
+               
+                
+                /*              
+                if(anp.contains(" "))
+                { 
+                	String[] anp_split = anp.split(" ");
+                    for(String s : anp_split)
+                    {
+                    	if(s.equals(np))
+                    	{
+                    		_feature.termNestIn(np, anp);
+                    		break;
+                    	}                    	
+                    }
+                }
+                */
+                
+                /* if np = "table content" and anp = "remote table content"...this nesting is not identified by the above code*/
+              
+                /*
+                if(anp.indexOf(np)==-1)
+                	continue;
+                else 
+                {
+                	int startIdx = 0;
+                
+                	for(;startIdx<anp.length() && (anp.length()-startIdx) >= np.length();)
+                	{
+                		
+                		if(anp.indexOf(np, startIdx)==-1)
+                			break;
+                		if((anp.indexOf(np, startIdx)==0 || anp.charAt(anp.indexOf(np, startIdx)-1)==' ') && (anp.indexOf(np, startIdx)+np.length()==anp.length() || anp.charAt(anp.indexOf(np, startIdx)+np.length()) == ' ' ))
+                		{
+                			_feature.termNestIn(np, anp);
+                			break;
+                		}
+                		else
+                		{
+                			startIdx = anp.indexOf(np, startIdx)+np.length();
+                			continue;
+                		}
+                	}
+                
+                }*/
+               // if (anp.indexOf(spacePrefixed) != -1 || anp.indexOf(spaceSuffixed) != -1) //e.g., np=male, anp=the male
+               //     _feature.termNestIn(np, anp);
+                //modified code ends
+     /*       }
+            counter++;
+
+
+            if (counter % 500 == 0) _logger.info("Batch done" + counter + " end: " + np);
+        }
+        return _feature;
+    }
+}
+*/

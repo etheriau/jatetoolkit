@@ -8,8 +8,8 @@ package uk.ac.shef.dcs.oak.jate.model;
 
 public class Term implements Comparable<Term> {
 
-	private String _singular;
-	private double _confidence;
+	protected String _singular;
+	protected double _confidence;
 
 	/**
 	 * Creates a term
@@ -53,4 +53,8 @@ public class Term implements Comparable<Term> {
 	public int compareTo(final Term c) {
       return getConfidence() > c.getConfidence() ? -1 : getConfidence() < c.getConfidence() ? 1 : 0;
    }
+	
+	
+	
+
 }

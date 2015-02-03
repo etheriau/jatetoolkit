@@ -41,8 +41,15 @@ public class WordCounter {
 	 * @return
 	 */
 	public int countWords(final Document d){
-		StringTokenizer tokenizer = new StringTokenizer(d.getContent().replaceAll("\\s+"," ")
+		
+		
+		/*StringTokenizer tokenizer = new StringTokenizer(d.getContent().replaceAll("\\s+"," ")
 					.replaceAll("\\s+"," ")," ");
+		*/
+		//modified part
+		
+		StringTokenizer tokenizer = new StringTokenizer(d.getContent(), "\r\n|\n");
+		
 		return tokenizer.countTokens();			
 	}
 

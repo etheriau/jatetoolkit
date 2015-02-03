@@ -15,11 +15,25 @@ public class JATEProperties {
     //public static final String NP_FILTER_PATTERN = "[^a-zA-Z0-9\\-]";
     //replaced by the following var:
     public static final String TERM_CLEAN_PATTERN = "[^a-zA-Z0-9\\-]";
+    public static final String REGEX_QUOTES="[\"]";
+    
 
     public static final String NLP_PATH = "jate.system.nlp";
     public static final String TERM_MAX_WORDS = "jate.system.term.maxwords";
     public static final String TERM_IGNORE_DIGITS = "jate.system.term.ignore_digits";
     public static final String MULTITHREAD_COUNTER_NUMBERS="jate.system.term.frequency.counter.multithread";
+    public static final String CONTEXT_PERCENTAGE = "jate.system.NCValue.percent";
+    
+    public static final String CORPUS_PATH = "jate.system.corpus_path";
+    public static final String RESULT_PATH="jate.system.result_path";
+    public static final String IGNORE_SINGLE_WORDS = "jate.system.term.ignore_singleWords";
+    public static final String TERM_MIN_FREQ = "jate.system.term.minFreq";
+    
+    /*code modification RAKE : starts*/
+    
+    public static final String TERM_CLEAN_PATTERN_RAKE = "[^a-zA-Z0-9\\-.'&_]";
+    
+    /*code modification RAKE : ends*/
 
     private JATEProperties() {
         read();
@@ -81,5 +95,45 @@ public class JATEProperties {
             return true;
         }
     }
+    
+    //code modification NCValue begins
+    
+    public int getPercentage() {
+        try {
+            return Integer.valueOf(getProperty(CONTEXT_PERCENTAGE));
+        } catch (Exception e) {
+            return 30;
+        }
+    }
+    
+    public String getCorpusPath() {
+        return getProperty(CORPUS_PATH);
+    }
+    
+    public String getResultPath() {
+        return getProperty(RESULT_PATH);
+    }
+    
+    public boolean isIgnoringSingleWords() {
+        try {
+            return Boolean.valueOf(getProperty(IGNORE_SINGLE_WORDS));
+        } catch (Exception e) {
+            return true;
+        }
+    }
+    
+    //code modification NCValue ends
+     
+    //code modification chi Square begins
+    public int getMinFreq() {
+        try {
+            return Integer.valueOf(getProperty(TERM_MIN_FREQ));
+        } catch (NumberFormatException e) {
+            return 4;
+        }
+    }
+    
+    //code modification chi Square ends
+    
 
 }

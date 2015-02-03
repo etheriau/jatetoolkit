@@ -12,9 +12,6 @@ import java.util.Set;
  *
  * @author <a href="mailto:z.zhang@dcs.shef.ac.uk">Ziqi Zhang</a>
  */
-
-
-
 public class CValueFeatureWrapper extends AbstractFeatureWrapper {
 
 	private FeatureCorpusTermFrequency _termFreq;
@@ -64,6 +61,14 @@ public class CValueFeatureWrapper extends AbstractFeatureWrapper {
         }
         return result;
 	}
+	
+	//modified code for NC-Value begins
+	
+	public String getTerm(int id){
+		return _termFreq.getGlobalIndex().retrieveTermCanonical(id);
+	}
+	
+	//modified code ends
 
 	public Set<String> getTerms(){
 		return _termFreq.getGlobalIndex().getTermsCanonical();

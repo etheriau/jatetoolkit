@@ -6,8 +6,8 @@ import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.nlptools.NLPToolsControllerOpenNLP;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Document;
-import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
+import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 import java.io.IOException;
 import java.util.*;
@@ -29,8 +29,10 @@ import java.util.*;
 
 public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
 
-    private static Logger _logger = Logger.getLogger(NounPhraseExtractorOpenNLP.class);
-
+	
+	
+	private static Logger _logger = Logger.getLogger(NounPhraseExtractorOpenNLP.class);
+ 
     /**
      * Creates an instance with specified stopwords list and norm
      *
@@ -38,9 +40,10 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
      * @param normaliser
      * @throws IOException
      */
-    public NounPhraseExtractorOpenNLP(IStopList stop, Normalizer normaliser) throws IOException {
+    public NounPhraseExtractorOpenNLP(StopList stop, Normalizer normaliser) throws IOException {
         _stoplist = stop;
         _normaliser = normaliser;
+        
     }
 
     public Map<String, Set<String>> extract(Corpus c) throws JATEException {
@@ -56,6 +59,9 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
         }
         return res;
     }
+    
+    
+    //modified part begins..the first function only commented and the rest are new implementations
 
     public Map<String, Set<String>> extract(Document d) throws JATEException {
         Map<String, Set<String>> res = new HashMap<String, Set<String>>();
@@ -71,12 +77,82 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
         } catch (IOException e) {
             throw new JATEException(e);
         }
+       
         return res;
     }
+    
+    
+    
+
+   
+    /*
+    public Map<String, Set<String>> extract(Document d) throws JATEException {
+        Map<String, Set<String>> res = new HashMap<String, Set<String>>();
+        
+        String[] candidateTerms = d.getContent().split("\\r?\\n"); 
+        for (Map.Entry<String, Set<String>> e : extract(candidateTerms).entrySet()) {
+        	Set<String> variants = res.get(e.getKey());
+            variants = variants == null ? new HashSet<String>() : variants;
+            variants.addAll(e.getValue());
+            res.put(e.getKey(), variants);
+        }       
+        return res;
+    }
+    
+    */
+   
+    public Map<String, Set<String>> extract(String[] candidates) throws JATEException {
+        Map<String, Set<String>> nouns = new HashMap<String, Set<String>>(); 
+        for (String c : candidates) {
+        	
+        	//modified code begins
+        	c = applyCharacterReplacement(c,JATEProperties.REGEX_QUOTES);
+            /*    c = applyCharacterReplacement(c, JATEProperties.TERM_CLEAN_PATTERN);
+                String[] e = applySplitList(c);
+
+                for (String str : e) {
+                String str=c;
+                   String stopremoved = applyTrimStopwords(str, _stoplist, _normaliser);
+                    if (stopremoved == null) continue;
+                */
+        	String original = c;
+            c = _normaliser.normalize(c.toLowerCase()).trim();
+            if( c.equals(""))
+            	continue;
+
+                   /* String[] nelements = str.split("\\s+");
+                    if (nelements.length < 1 || nelements.length >
+                            Integer.valueOf(JATEProperties.getInstance().getMaxMultipleWords()))
+                        continue;
+                    if (JATEProperties.getInstance().isIgnoringDigits() &&
+                            containsDigit(str))
+                        continue;
+                    if (!containsLetter(str)) continue;
+                    if (!hasReasonableNumChars(str)) continue;				//needed or not?
+*/
+            //modified code ends
+            if (c.toLowerCase().indexOf(c) != -1) {
+            	Set<String> variants = nouns.get(c);
+                variants = variants == null ? new HashSet<String>() : variants;
+                variants.add(original);
+                nouns.put(c, variants);
+            }              
+        }        
+        return nouns;
+    }
+    
+    
+    
+    
+    
+    //modified part ends
+    
+    
 
 
     public Map<String, Set<String>> extract(String content) throws JATEException {
-        Map<String, Set<String>> nouns = new HashMap<String, Set<String>>();
+      //  System.out.println(content+ "||" );
+    	Map<String, Set<String>> nouns = new HashMap<String, Set<String>>();
         try {
             String[] tokens = NLPToolsControllerOpenNLP.getInstance().getTokeniser().tokenize(content);
             String[] pos = NLPToolsControllerOpenNLP.getInstance().getPosTagger().tag(tokens);
@@ -102,6 +178,8 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
                     if (!hasReasonableNumChars(str)) continue;
 
                     if (c.toLowerCase().indexOf(str) != -1) {
+                    	//System.out.print(original+"|");
+                    	
                         Set<String> variants = nouns.get(str);
                         variants = variants == null ? new HashSet<String>() : variants;
                         variants.add(original);
@@ -109,14 +187,20 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
                     }
                 }
             }
+          //  System.out.println("\n");
         } catch (IOException wte) {
             throw new JATEException(wte);
         }
+       
         return nouns;
     }
 
     private String[] chunkNPs(String[] tokens, String[] pos) throws IOException {
         String[] phrases = NLPToolsControllerOpenNLP.getInstance().getPhraseChunker().chunk(tokens, pos);
+       /* for(int i=0;i<phrases.length;i++){
+        	System.out.println(tokens[i]+ " "+ phrases[i]);
+        }
+        */
         List<String> candidates = new ArrayList<String>();
         String phrase = "";
         for (int n = 0; n < tokens.length; n++) {
@@ -139,5 +223,6 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
         return candidates.toArray(new String[0]);
     }
 
+   
 
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * Lemmatizer is a specific type of Nrmaliser and returns a string to its dictionary root.
+ * Lemmatizer is a specific type of Normaliser and returns a string to its dictionary root.
  *
  * @author <a href="mailto:z.zhang@dcs.shef.ac.uk">Ziqi Zhang</a>
  */
@@ -61,7 +61,7 @@ public class Lemmatizer extends Normalizer {
 			String tok=tokenizer.nextToken();
 			sb.append(normalize(tok)).append(" ");
 		}
-		return sb.toString();
+		return sb.toString().trim();
 	}
 
 

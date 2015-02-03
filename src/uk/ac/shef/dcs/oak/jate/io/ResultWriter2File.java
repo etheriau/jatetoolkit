@@ -24,6 +24,17 @@ public class ResultWriter2File {
 	 * @param index an instance of GlobalIndexMem. The writer will read mapping data from term canonical from to variant
 	 * forms and output the result
 	 */
+	
+	/*modified code begins:RAKE*/
+	
+	public ResultWriter2File() {
+		_index=null;
+	}
+	
+	/*modified code ends:RAKE*/
+	
+	
+	
 	public ResultWriter2File(GlobalIndex index) {
 		this._index = index;
 	}
@@ -48,10 +59,13 @@ public class ResultWriter2File {
 			else{
 				for (Term c : result) {
 					Set<String> originals = _index.retrieveVariantsOfTermCanonical(c.getConcept());
-					if(originals==null)
+					if(originals==null || originals.size() == 0)
+					{
 						pw.println(c.getConcept() + "\t\t\t" + c.getConfidence());
-					else
+					}
+					else{
 						pw.println(c.getConcept()+" |"+writeToString(originals) + "\t\t\t" + c.getConfidence());
+					}
 				}
 			}
 			pw.close();

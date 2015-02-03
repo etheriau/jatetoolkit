@@ -5,7 +5,9 @@ import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.core.npextractor.CandidateTermExtractor;
+import uk.ac.shef.dcs.oak.jate.core.npextractor.PhraseExtractor;
 
+import java.util.List;
 import java.util.Set;
 import java.util.Map;
 
@@ -46,6 +48,10 @@ public class GlobalIndexBuilderMem implements GlobalIndexBuilder{
 	 * @return
 	 * @throws uk.ac.shef.dcs.oak.jate.JATEException
 	 */
+	
+	
+	
+	
 	public GlobalIndexMem build(Corpus c, CandidateTermExtractor extractor) throws JATEException {
 		GlobalIndexMem _index = new GlobalIndexMem();
 		for (Document d : c) {
@@ -59,5 +65,14 @@ public class GlobalIndexBuilderMem implements GlobalIndexBuilder{
 		}
 		return _index;
 	}
+	
+	
+	
+	//newly added for RAKE : code modified begins
+	public List<String> build(Corpus c, PhraseExtractor extractor) throws JATEException {		
+		return extractor.extract(c);	
+		
+	}
+	//code modified ends
 }
 

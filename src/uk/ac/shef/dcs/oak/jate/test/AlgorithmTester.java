@@ -13,7 +13,6 @@ import uk.ac.shef.dcs.oak.jate.core.npextractor.WordExtractor;
 import uk.ac.shef.dcs.oak.jate.io.ResultWriter2File;
 import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Term;
-import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 import uk.ac.shef.dcs.oak.jate.util.counter.WordCounter;
@@ -25,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+
+
 /**
  * An example class that test all algorithms
  */
@@ -32,13 +33,57 @@ public class AlgorithmTester {
 
 	private Map<Algorithm, AbstractFeatureWrapper> _algregistry = new HashMap<Algorithm, AbstractFeatureWrapper>();
 	private static Logger _logger = Logger.getLogger(AlgorithmTester.class);
-
+	
+	//NC Value code modification begins
+	
+	private Term[] result;
+	private GlobalIndex _index;
+	
+	
+	//NC Value code modification ends
+	
 	public void registerAlgorithm(Algorithm a, AbstractFeatureWrapper f) {
 		_algregistry.put(a, f);
 	}
 
+	
 	public void execute(GlobalIndex index, String outFolder) throws JATEException, IOException {
+		//NCValue code modification begins
+		
+		_index=index;
+		
+		//NCValue code modification ends
+		
 		ResultWriter2File writer = new ResultWriter2File(index);
+        if (_algregistry.size() == 0) throw new JATEException("No algorithm registered!");
+        _logger.info("Running NP recognition...");
+
+        /*.extractNP(c);*/
+        for (Map.Entry<Algorithm, AbstractFeatureWrapper> en : _algregistry.entrySet()) {
+            _logger.info("Running feature store builder and ATR..." + en.getKey().toString());
+            result = en.getKey().execute(en.getValue()); 
+            writer.output(result, outFolder + File.separator + en.getKey().toString() + ".txt");   
+        }
+      
+	}
+	
+	/*NC Value code modification begins*/
+    
+	public Term[] getTerms(){
+		return result;
+	}
+	
+	public GlobalIndex getIndex(){
+		return _index;
+	}
+	
+    /*NC Value code modification ends*/
+	
+	
+	/*modified code begins :RAKE*/
+	
+	public void execute(String outFolder) throws JATEException, IOException {
+		ResultWriter2File writer = new ResultWriter2File();
         if (_algregistry.size() == 0) throw new JATEException("No algorithm registered!");
         _logger.info("Running NP recognition...");
 
@@ -49,13 +94,18 @@ public class AlgorithmTester {
             writer.output(result, outFolder + File.separator + en.getKey().toString() + ".txt");
         }
 	}
+	
+	/*Modified code ends :RAKE */
+	
+	
+	
+	
 
 	public static void main(String[] args) {
 		if (args.length < 3) System.out.println("Usage: java AlgorithmTester [corpus_path] [reference_corpus_path] [output_folder]");
 		else {
 			try {
 				System.out.println(new Date());
-
                 //##########################################################
                 //#         Step 1. Extract candidate terms/words from     #
                 //#         documents, and index the terms/words, docs     #
@@ -63,7 +113,7 @@ public class AlgorithmTester {
                 //##########################################################
 
                 //stop words and lemmatizer are used for processing the extraction of candidate terms
-				IStopList stop = new StopList(true);
+				StopList stop = new StopList(true);
 				Lemmatizer lemmatizer = new Lemmatizer();
 
                 //Three CandidateTermExtractor are implemented:
@@ -141,10 +191,10 @@ public class AlgorithmTester {
                 //##########################################################
 				AlgorithmTester tester = new AlgorithmTester();
 				tester.registerAlgorithm(new TFIDFAlgorithm(), new TFIDFFeatureWrapper(termCorpusFreq));
-				tester.registerAlgorithm(new GlossExAlgorithm(), new GlossExFeatureWrapper(termCorpusFreq, wordFreq, bncRef));
-				tester.registerAlgorithm(new WeirdnessAlgorithm(), new WeirdnessFeatureWrapper(wordFreq, termCorpusFreq, bncRef));
+				//tester.registerAlgorithm(new GlossExAlgorithm(), new GlossExFeatureWrapper(termCorpusFreq, wordFreq, bncRef));
+				//tester.registerAlgorithm(new WeirdnessAlgorithm(), new WeirdnessFeatureWrapper(wordFreq, termCorpusFreq, bncRef));
 				tester.registerAlgorithm(new CValueAlgorithm(), new CValueFeatureWrapper(termCorpusFreq, termNest));
-				tester.registerAlgorithm(new TermExAlgorithm(), new TermExFeatureWrapper(termDocFreq, wordFreq, bncRef));
+			//	tester.registerAlgorithm(new TermExAlgorithm(), new TermExFeatureWrapper(termDocFreq, wordFreq, bncRef));
                 tester.registerAlgorithm(new RIDFAlgorithm(), new RIDFFeatureWrapper(termCorpusFreq));
                 tester.registerAlgorithm(new AverageCorpusTFAlgorithm(), new AverageCorpusTFFeatureWrapper(termCorpusFreq));
                 tester.registerAlgorithm(new FrequencyAlgorithm(), new FrequencyFeatureWrapper(termCorpusFreq));

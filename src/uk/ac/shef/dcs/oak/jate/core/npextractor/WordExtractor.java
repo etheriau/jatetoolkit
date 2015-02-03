@@ -4,8 +4,8 @@ import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Document;
-import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
+import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,7 +32,7 @@ public class WordExtractor extends CandidateTermExtractor {
      * @param stop       a list of words which are unlikely to occur in a domain specific candidate term
      * @param normaliser an instance of a Normalizer which returns candidate term to canonical form
      */
-    public WordExtractor(IStopList stop, Normalizer normaliser) {
+    public WordExtractor(StopList stop, Normalizer normaliser) {
         _stoplist = stop;
         _normaliser = normaliser;
     }
@@ -46,7 +46,7 @@ public class WordExtractor extends CandidateTermExtractor {
      * @param minCharsInWord words that contain less than this number of characters (non-white space) are ignored in the
      * extracted words
      */
-    public WordExtractor(IStopList stop, Normalizer normaliser, boolean removeStop, int minCharsInWord) {
+    public WordExtractor(StopList stop, Normalizer normaliser, boolean removeStop, int minCharsInWord) {
         _stoplist = stop;
         _normaliser = normaliser;
         _removeStop=removeStop;

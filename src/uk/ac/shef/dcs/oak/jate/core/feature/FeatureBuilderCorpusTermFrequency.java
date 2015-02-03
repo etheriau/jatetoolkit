@@ -9,7 +9,6 @@ import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
 import uk.ac.shef.dcs.oak.jate.util.counter.TermFreqCounter;
-
 import java.util.Set;
 
 /**
@@ -48,14 +47,29 @@ public class FeatureBuilderCorpusTermFrequency extends AbstractFeatureBuilder {
 
 		_logger.info("About to build FeatureCorpusTermFrequency...");
 		int totalCorpusTermFreq = 0;
+		//for (Document d : index.getDocuments()) {
+		//	_logger.info("For Document " + d);
+			//String context = CandidateTermExtractor.applyCharacterReplacement(d.getContent(), JATEProperties.TERM_CLEAN_PATTERN);
+		/*File file = new File ("C:\\Users\\aniya_agarwal\\Desktop\\reqtsent\\sample.txt");
+		Document doc=null;
+		try {
+			doc = new DocumentImpl(file.toURI().toURL());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		*/
+		
+		
 		for (Document d : index.getDocuments()) {
 			_logger.info("For Document " + d);
 			String context = CandidateTermExtractor.applyCharacterReplacement(d.getContent(), JATEProperties.TERM_CLEAN_PATTERN);
+			
 			totalCorpusTermFreq += _wordCounter.countWords(d);
 
 			Set<String> candidates = index.retrieveTermsCanonicalInDoc(d);
             //counting by single-threaded termcounter
 			for (String np : candidates) {
+				//Set<String> va = index.retrieveVariantsOfTermCanonical(np);
 				int freq = _termFreqCounter.count(context, index.retrieveVariantsOfTermCanonical(np));
 				_feature.addToTermFreq(np, freq);
 			}
@@ -64,4 +78,6 @@ public class FeatureBuilderCorpusTermFrequency extends AbstractFeatureBuilder {
 
 		return _feature;
 	}
+
+	
 }
