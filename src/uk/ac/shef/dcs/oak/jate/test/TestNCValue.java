@@ -13,6 +13,8 @@ import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.algorithm.NCValueAlgorithm;
 import uk.ac.shef.dcs.oak.jate.core.algorithm.NCValueFeatureWrapper;
 import uk.ac.shef.dcs.oak.jate.core.context.ContextExtraction;
+import uk.ac.shef.dcs.oak.jate.model.Corpus;
+import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
@@ -31,13 +33,14 @@ public class TestNCValue {
 			Lemmatizer lemmatizer = new Lemmatizer();
 			
 			/* Get the list of context words by making use of the 'top candidates' of CValue resultant term candidates. */
+			Corpus corpus = new CorpusImpl( JATEProperties.getInstance().getCorpusPath() );
 			ContextExtraction contextExtract = new ContextExtraction(tester,stoplist,lemmatizer);
-			Map<String, Double> contextWords = contextExtract.Extract();
+			Map<String, Double> contextWords = contextExtract.Extract( corpus );
 			
 			/* Register the NC-Value Algorithm and get it executed. */
 			AlgorithmTester NCTester = new AlgorithmTester();
 			//Ankit: added the required parameters stoplist and lemmatizer
-			NCTester.registerAlgorithm(new NCValueAlgorithm(contextExtract,stoplist,lemmatizer), new NCValueFeatureWrapper(contextWords, tester));
+			NCTester.registerAlgorithm(new NCValueAlgorithm(contextExtract,stoplist,lemmatizer), new NCValueFeatureWrapper(corpus, contextWords, tester));
 			NCTester.execute(tester.getIndex(), JATEProperties.getInstance().getResultPath());
 			System.out.println("Ended at: " + new Date());		
 		}	 

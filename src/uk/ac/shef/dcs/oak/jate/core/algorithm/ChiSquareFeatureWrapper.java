@@ -2,6 +2,7 @@ package uk.ac.shef.dcs.oak.jate.core.algorithm;
 
 import java.util.Set;
 
+import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Term;
 import uk.ac.shef.dcs.oak.jate.test.AlgorithmTester;
 
@@ -10,12 +11,14 @@ import uk.ac.shef.dcs.oak.jate.test.AlgorithmTester;
  */
 
 public class ChiSquareFeatureWrapper extends AbstractFeatureWrapper {
-	
+
+	private final Corpus corpus;
 	private AlgorithmTester _tester;
+
 	
-	
-	public ChiSquareFeatureWrapper(AlgorithmTester tester){
+	public ChiSquareFeatureWrapper(Corpus corpus, AlgorithmTester tester){
 		_tester = tester;
+		this.corpus = corpus;
 	}
 
 	public AlgorithmTester getTesterObject(){
@@ -37,6 +40,11 @@ public class ChiSquareFeatureWrapper extends AbstractFeatureWrapper {
 		// TODO Auto-generated method stub
 		
 		return null;
+	}
+
+
+	public Corpus getCorpus() {
+		return corpus;
 	}
 
 }

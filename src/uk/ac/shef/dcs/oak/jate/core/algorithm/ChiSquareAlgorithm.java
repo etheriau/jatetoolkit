@@ -236,7 +236,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 		chiFeatureStore = (ChiSquareFeatureWrapper) store;
 	
 		try{
-			generateMaps(new CorpusImpl(JATEProperties.getInstance().getCorpusPath()));
+			generateMaps( chiFeatureStore.getCorpus() );
 		}
 		catch(IOException e){
 			e.printStackTrace();

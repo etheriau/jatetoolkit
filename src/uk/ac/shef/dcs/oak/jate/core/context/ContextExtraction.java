@@ -64,14 +64,14 @@ public class ContextExtraction{
 	}
 	
 	/** Main function for this class. */
-	public Map<String, Double> Extract() throws IOException
+	public Map<String, Double> Extract( Corpus corpus ) throws IOException
 	{
 		/* Get the percentage of the C-Value Terms which are to be considered as 'top candidate terms' for context words identification.
 		 * This percentage value is configurable in jate.properties file.
 		 */
 		int percent_TopTerms = JATEProperties.getInstance().getPercentage();
 		getTopTerms(percent_TopTerms);
-		ContextIdentification(new CorpusImpl(JATEProperties.getInstance().getCorpusPath()));		
+		ContextIdentification( corpus );
 		Calculate_CW_Weight();
 		return ContextWord_Map;		
 	}

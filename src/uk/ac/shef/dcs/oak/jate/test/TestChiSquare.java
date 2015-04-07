@@ -51,7 +51,8 @@ public class TestChiSquare{
 			//relations
 			GlobalIndexBuilderMem builder = new GlobalIndexBuilderMem();
 			//build the global resource index
-			GlobalIndexMem termDocIndex = builder.build(new CorpusImpl(path_to_corpus), npextractor);
+			CorpusImpl corpus = new CorpusImpl(path_to_corpus);
+			GlobalIndexMem termDocIndex = builder.build(corpus, npextractor);
 
 			/*newly added for improving frequency count calculation: begins*/
 			TermVariantsUpdater update = new TermVariantsUpdater(termDocIndex, stop, lemmatizer);
@@ -69,7 +70,7 @@ public class TestChiSquare{
 			//Execute chiSquare Algorithm
 			AlgorithmTester chiTester = new AlgorithmTester();
 			//Ankit: added the parameters to the constructor call to avoid multiple allocations
-			chiTester.registerAlgorithm(new ChiSquareAlgorithm(stop,lemmatizer,npextractor), new ChiSquareFeatureWrapper(tester));			
+			chiTester.registerAlgorithm(new ChiSquareAlgorithm(stop,lemmatizer,npextractor), new ChiSquareFeatureWrapper(corpus, tester));
 			chiTester.execute(termDocIndex, path_to_output);
 			
 			System.out.println("Ended at: " + new Date());

@@ -70,9 +70,8 @@ public class NCValueAlgorithm implements Algorithm{
 	/** Each candidate term from the C-value list appears in the corpus with a set of context words (may be an adjective, noun or a verb).
 	 * This function identifies the context words with respect to all the candidates identified in the C-Value result set. 
 	*/
-	private void ContextIdentification_Terms() throws IOException{
-		Corpus corpus = new CorpusImpl(JATEProperties.getInstance().getCorpusPath());
-		for (Document d : corpus) {
+	private void ContextIdentification_Terms( NCValueFeatureWrapper ncFeatureStore ) throws IOException{
+		for (Document d : ncFeatureStore.getCorpus() ) {
 			sentLoop:
 			for (String sent: NLPToolsControllerOpenNLP.getInstance().getSentenceSplitter().sentDetect(d.getContent())) {
 				//System.out.println(sent)	;			
@@ -178,7 +177,7 @@ public class NCValueAlgorithm implements Algorithm{
 		
 		try {
 			initialize(ncFeatureStore);
-			ContextIdentification_Terms();
+			ContextIdentification_Terms( ncFeatureStore );
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

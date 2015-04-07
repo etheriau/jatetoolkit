@@ -3,16 +3,19 @@ package uk.ac.shef.dcs.oak.jate.core.algorithm;
 import java.util.Map;
 import java.util.Set;
 
+import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.test.AlgorithmTester;
 
 
 public class NCValueFeatureWrapper extends AbstractFeatureWrapper {
-	
+
+	private final Corpus corpus;
 	private Map<String, Double> _contextWords;
 	private AlgorithmTester _tester;
 	
 	
-	public NCValueFeatureWrapper(Map<String, Double> contextWords, AlgorithmTester tester){
+	public NCValueFeatureWrapper(Corpus corpus, Map<String, Double> contextWords, AlgorithmTester tester){
+		this.corpus = corpus;
 		_contextWords = contextWords;
 		_tester = tester;
 	}
@@ -33,4 +36,7 @@ public class NCValueFeatureWrapper extends AbstractFeatureWrapper {
 		return null;
 	}
 
+	public Corpus getCorpus() {
+		return corpus;
+	}
 }

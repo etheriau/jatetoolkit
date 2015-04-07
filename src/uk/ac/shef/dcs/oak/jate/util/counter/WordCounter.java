@@ -1,5 +1,6 @@
 package uk.ac.shef.dcs.oak.jate.util.counter;
 
+import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.model.DocumentImpl;
@@ -25,7 +26,7 @@ public class WordCounter {
 	 * @param c
 	 * @return
 	 */
-	public int countWords(final CorpusImpl c){
+	public int countWords(final Corpus c){
 		int total=0;
 		for(Document doc:c){
 			StringTokenizer tokenizer = new StringTokenizer(doc.getContent().replaceAll("\\s+"," ")
@@ -60,7 +61,7 @@ public class WordCounter {
 	public static void main(String[] args) {
 		File targetFolder = new File(args[0]);
       File[] files = targetFolder.listFiles();
-		CorpusImpl c =new CorpusImpl();
+		Corpus c = new CorpusImpl();
       for (File f : files) {
 	      try {
 		      c.add(new DocumentImpl(f.toURI().toURL()));

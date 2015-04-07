@@ -116,11 +116,13 @@ public class JATEProperties {
             return 30;
         }
     }
-    
+
+    // Only use this for testing
     public String getCorpusPath() {
         return getProperty(CORPUS_PATH);
     }
-    
+
+    // Only use this for testing
     public String getResultPath() {
         return getProperty(RESULT_PATH);
     }
