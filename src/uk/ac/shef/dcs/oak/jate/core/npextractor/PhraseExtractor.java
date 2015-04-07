@@ -9,12 +9,12 @@ import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.nlptools.NLPToolsControllerOpenNLP;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Document;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
-import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 
 public class PhraseExtractor {
-	protected StopList _stoplist;
+	protected IStopList _stoplist;
 	protected Normalizer _normaliser;
 
     private boolean _removeStop = true;
@@ -28,7 +28,7 @@ public class PhraseExtractor {
      * @param stop       a list of words which are unlikely to occur in a domain specific candidate term
      * @param normaliser an instance of a Normalizer which returns candidate term to canonical form
      */
-    public PhraseExtractor(StopList stop, Normalizer normaliser) {
+    public PhraseExtractor(IStopList stop, Normalizer normaliser) {
         _stoplist = stop;
         _normaliser = normaliser;
     }
@@ -42,7 +42,7 @@ public class PhraseExtractor {
      * @param minCharsInWord words that contain less than this number of characters (non-white space) are ignored in the
      * extracted words
      */
-    public PhraseExtractor(StopList stop, Normalizer normaliser, boolean removeStop, int minCharsInWord) {
+    public PhraseExtractor(IStopList stop, Normalizer normaliser, boolean removeStop, int minCharsInWord) {
         _stoplist = stop;
         _normaliser = normaliser;
         _removeStop=removeStop;

@@ -18,8 +18,8 @@ import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.model.Term;
 import uk.ac.shef.dcs.oak.jate.util.Utility;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
-import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 /**
 * An implementation of the NCValue term recognition algorithm. See Frantzi et. al 2000, <i>
@@ -37,10 +37,10 @@ public class NCValueAlgorithm implements Algorithm{
 	
 	private Map<String, Double> context_words;
 
-	private StopList stoplist;
+	private IStopList stoplist;
 	private Lemmatizer lemmatizer;
 	
-	public NCValueAlgorithm(ContextExtraction contextExtract, StopList stoplist, Lemmatizer lemmatizer){
+	public NCValueAlgorithm(ContextExtraction contextExtract, IStopList stoplist, Lemmatizer lemmatizer){
 		CValueTerms_Variants = new HashSet<String>();
 		Term_CW_Map = new HashMap<String,Set<String>>();
 		/*Term_CW_freqMap maps the compound key (combination of term and the context word) to the frequency of co-occurrence of that term-context word pair.

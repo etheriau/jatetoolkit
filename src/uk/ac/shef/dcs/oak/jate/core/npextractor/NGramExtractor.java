@@ -5,8 +5,8 @@ import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Document;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
-import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 import uk.ac.shef.dcs.oak.jate.core.nlptools.NLPToolsControllerOpenNLP;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class NGramExtractor extends CandidateTermExtractor {
     private static Logger _logger = Logger.getLogger(NGramExtractor.class);
 
 
-    public NGramExtractor(StopList stop, Normalizer normaliser) throws IOException {
+    public NGramExtractor(IStopList stop, Normalizer normaliser) throws IOException {
         _stoplist = stop;
         _normaliser = normaliser;
     }

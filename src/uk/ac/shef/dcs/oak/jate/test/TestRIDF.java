@@ -14,6 +14,7 @@ import uk.ac.shef.dcs.oak.jate.core.npextractor.WordExtractor;
 import uk.ac.shef.dcs.oak.jate.io.ResultWriter2File;
 import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Term;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 import uk.ac.shef.dcs.oak.jate.util.counter.TermFreqCounter;
@@ -61,7 +62,7 @@ public class TestRIDF {
 			//creates instances of required processors and resources
 
 			//stop word list
-			StopList stop = new StopList(true);
+			IStopList stop = new StopList(true);
 
 			//lemmatiser
 			Lemmatizer lemmatizer = new Lemmatizer();

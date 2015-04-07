@@ -21,8 +21,8 @@ import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.model.Term;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
-import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 /**
  * An implementation of the Chi Square algorithm. See Matsuo, Y., Ishizuka, M. </i>
  * Keyword Extraction from a Single Document Using Word Co-Occurrence Statistical Information. </i>
@@ -38,12 +38,12 @@ public class ChiSquareAlgorithm implements Algorithm {
 //	private Set<String> all_terms_variants; 
 	private List<Term> ngrams;
 	private ChiSquareFeatureWrapper chiFeatureStore;
-	StopList stoplist;
+	IStopList stoplist;
 	Lemmatizer lemmatizer;
 	//Ankit: noun phrase extractor
 	CandidateTermExtractor extractor;
 	
-	public ChiSquareAlgorithm(StopList stoplist, Lemmatizer lemmatizer, CandidateTermExtractor extractor) throws IOException{
+	public ChiSquareAlgorithm(IStopList stoplist, Lemmatizer lemmatizer, CandidateTermExtractor extractor) throws IOException{
 		ngrams = new ArrayList<Term>();
 		cooccurence_map = new HashMap<String, Integer>();
 		frequentTerms_variants_Map = new HashMap<String, Set<String>>() ;

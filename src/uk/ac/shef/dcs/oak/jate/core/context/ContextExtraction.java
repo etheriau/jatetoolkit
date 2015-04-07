@@ -16,8 +16,8 @@ import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.model.Term;
 import uk.ac.shef.dcs.oak.jate.test.AlgorithmTester;
 import uk.ac.shef.dcs.oak.jate.util.Utility;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
-import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 /**
  * This class extracts the term context words along with their weights using the 'top' candidate terms from C-Value result. 
@@ -25,7 +25,7 @@ import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 public class ContextExtraction{
 	private AlgorithmTester tester;		
-	private StopList stoplist; 
+	private IStopList stoplist;
 	
 	private Set<String> TopTerms_variants;
 	private int TopTerms_Count;
@@ -37,7 +37,7 @@ public class ContextExtraction{
 	
 	
 	//Ankit: added stoplist and lemmatizer as parameters to avoid multiple allocations
-	public ContextExtraction(AlgorithmTester tester, StopList stoplist, Lemmatizer lemmatizer) throws IOException
+	public ContextExtraction(AlgorithmTester tester, IStopList stoplist, Lemmatizer lemmatizer) throws IOException
 	{
 		// To obtain reference of tester object for CValue Algorithm.
 		this.tester = tester;

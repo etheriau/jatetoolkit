@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndexMem;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
-import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 /**
  * Newly added for improving the variants detection for a term.
@@ -19,7 +19,7 @@ public class TermVariantsUpdater{
 	
 	private Map<String, Set<String>> additionalVariantsMap;
 	
-	public TermVariantsUpdater(GlobalIndexMem termDocIndex, StopList stoplist, Lemmatizer lemmatizer) {
+	public TermVariantsUpdater(GlobalIndexMem termDocIndex, IStopList stoplist, Lemmatizer lemmatizer) {
 		// TODO Auto-generated constructor stub
 		_index = termDocIndex;
 		additionalVariantsMap = new HashMap<String, Set<String>>();

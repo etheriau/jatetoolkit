@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Set;
 
 /**
  * Represents a stop word list. These are the words which usually should not occur in a valid term
@@ -15,7 +16,9 @@ import java.io.FileReader;
  */
 
 
-public class StopList extends HashSet<String> {
+public class StopList implements IStopList {
+
+	private final Set<String> words = new HashSet<String>();
 
 	private boolean _caseSensitive;
 
@@ -36,8 +39,8 @@ public class StopList extends HashSet<String> {
 	 * @return true if the word is a stop word, false if otherwise
 	 */
 	public boolean isStopWord(String word){
-		if(_caseSensitive) return contains(word.toLowerCase());
-		return contains(word);
+		if(!_caseSensitive) return words.contains(word.toLowerCase());
+		return words.contains(word);
 	}
 
 	private void loadStopList(final File stopListFile, final boolean lowercase) throws IOException {
@@ -46,8 +49,8 @@ public class StopList extends HashSet<String> {
       while ((line = reader.readLine()) != null) {
          line = line.trim();
          if (line.equals("") || line.startsWith("//")) continue;
-         if(lowercase) this.add(line.toLowerCase());
-	      else this.add(line);
+         if(lowercase) words.add(line.toLowerCase());
+	      else words.add(line);
       }
    }
 

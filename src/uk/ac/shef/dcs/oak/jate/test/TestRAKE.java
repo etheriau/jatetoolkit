@@ -10,6 +10,7 @@ import uk.ac.shef.dcs.oak.jate.core.algorithm.RAKEFeatureWrapper;
 import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndexBuilderMem;
 import uk.ac.shef.dcs.oak.jate.core.npextractor.PhraseExtractor;
 import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
+import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
 import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
@@ -27,7 +28,7 @@ public class TestRAKE{
 			//creates instances of required processors and resources
 
 			//stop word list
-			StopList stop = new StopList(true);
+			IStopList stop = new StopList(true);
 
 			//lemmatiser
 			Lemmatizer lemmatizer = new Lemmatizer();
