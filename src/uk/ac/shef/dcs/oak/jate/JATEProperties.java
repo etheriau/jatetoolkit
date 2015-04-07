@@ -23,6 +23,8 @@ public class JATEProperties {
     public static final String TERM_IGNORE_DIGITS = "jate.system.term.ignore_digits";
     public static final String MULTITHREAD_COUNTER_NUMBERS="jate.system.term.frequency.counter.multithread";
     public static final String CONTEXT_PERCENTAGE = "jate.system.NCValue.percent";
+    //Ankit: Adding separate input parameter for ChiSquareAlgorithm
+    public static final String TOP_FREQUENT_PERCENTAGE = "jate.system.ChiSquare.percent";
     
     public static final String CORPUS_PATH = "jate.system.corpus_path";
     public static final String RESULT_PATH="jate.system.result_path";
@@ -94,6 +96,15 @@ public class JATEProperties {
         } catch (Exception e) {
             return true;
         }
+    }
+    
+    //Ankit: Getter for ChiSquare top frequent percentage parameter
+    public int getTopFrequentPercentage(){
+    	try{
+    		return Integer.valueOf(getProperty(TOP_FREQUENT_PERCENTAGE));
+    	} catch (Exception e){
+    		return 10;
+    	}
     }
     
     //code modification NCValue begins

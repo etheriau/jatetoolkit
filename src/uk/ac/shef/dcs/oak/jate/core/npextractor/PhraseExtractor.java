@@ -1,5 +1,9 @@
 package uk.ac.shef.dcs.oak.jate.core.npextractor;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.nlptools.NLPToolsControllerOpenNLP;
@@ -7,10 +11,6 @@ import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
 import uk.ac.shef.dcs.oak.jate.util.control.StopList;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PhraseExtractor {
@@ -49,15 +49,18 @@ public class PhraseExtractor {
         _minCharsInWord=minCharsInWord;
     }
 
-    public List<String> extract(Corpus c) throws JATEException {
+    public List<String> extract(Corpus c) throws JATEException, IOException {
         List<String> res = new ArrayList<String>();
         for (Document d : c) {
-            res.addAll(extract(d.getContent())) ;
+        	//Ankit: Added sentence extractor to better distinguish phrases, respecting sentence boundaries
+        	for (String sent: NLPToolsControllerOpenNLP.getInstance().getSentenceSplitter().sentDetect(d.getContent()))
+        		res.addAll(extract(sent)) ;
         }
         return res;
     }
 
-   
+    //Ankit: debug
+    //private static int flopCount = 0;
 
     public List<String> extract(String content) throws JATEException {
         List<String> phrases = new ArrayList<String>();
@@ -66,11 +69,26 @@ public class PhraseExtractor {
         	String[] words = NLPToolsControllerOpenNLP.getInstance().getTokeniser().tokenize(content);
         	
 		    int wordCounter = 0;
-	
+		    //Ankit: added a flag used to mark the end of a sentence if a reference is put at the end of a sentence.
+		    boolean endFlag=false;
 		    StringBuilder sb = new StringBuilder();
 		        
 		    for (String temp_w : words) {
-		        	
+		    	endFlag=false;
+		    	//Ankit: To handle special cases where references end the sentence .[21] etc.
+		    	if(temp_w.matches("^\\.\\[[0-9]*.*")){
+		    		//Ankit: debug
+		    		//System.out.println(flopCount+" term is:"+temp_w);
+		    		//flopCount++;
+		    		endFlag=true;
+		    	}
+		    	else if(temp_w.matches("^\\[?[0-9]*\\].*")) {
+		    		//Ankit: debug
+		    		//System.out.println(flopCount+" caught term is:"+temp_w);
+		    		//flopCount++;
+		    		continue;
+		    	}
+		    	
 			    String w = CandidateTermExtractor.applyCharacterReplacement(temp_w, JATEProperties.TERM_CLEAN_PATTERN_RAKE);
 			    String nw = w.trim().toLowerCase();
 			    
@@ -101,8 +119,8 @@ public class PhraseExtractor {
 			    	continue;
 			    }		    
 			    
-			           
-			    if ((!containsLetter(nw) && !containsDigit(nw))||(nw.length() < _minCharsInWord)||(_removeStop && (_stoplist.isStopWord(nw) || _stoplist.isStopWord(w.trim())))) 
+			    //Ankit: added endFlag to mark the end of a sentence if a case similar to .[21] occurs
+			    if (endFlag||(!containsLetter(nw) && !containsDigit(nw))||(nw.length() < _minCharsInWord)||(_removeStop && (_stoplist.isStopWord(nw) || _stoplist.isStopWord(w.trim())))) 
 			    {
 			    	if(sb.length()==0)
 			    		continue;
@@ -112,7 +130,6 @@ public class PhraseExtractor {
 			            sb.setLength(0);
 			         }            		            		
 			     }
-			    
 			     else
 			     {
 			    	 sb.append(" " + nw);

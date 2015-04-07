@@ -25,7 +25,8 @@ public class Utility{
 	}
 	
 	/** Returns the input string after lemmatization. */	
-	public static String getLemma(String context) throws IOException{
+	//Ankit: Removing this method as it is not really required.
+/*	public static String getLemma(String context) throws IOException{
 		StopList stoplist = new StopList(true);
 		Lemmatizer lemmatizer = new Lemmatizer();
 		String stopremoved = CandidateTermExtractor.applyTrimStopwords(context.trim(), stoplist, lemmatizer);
@@ -35,16 +36,17 @@ public class Utility{
 		return lemma;
 	}
 	
+	*/
 	
 	public static String getLemmaChiSquare(String context, StopList stoplist, Lemmatizer lemmatizer) throws IOException{
-		
 		String stopremoved = CandidateTermExtractor.applyTrimStopwords(context.trim(), stoplist, lemmatizer);
 		String lemma=null;
 		if(stopremoved!=null)
 			lemma = lemmatizer.normalize(stopremoved.toLowerCase().trim());
-		else{
-			System.out.println("null lemma" + context.trim());
-		}
+		//Ankit: unnecessary output information
+		//else{
+		//	System.out.println("null lemma" + context.trim());
+		//}
 		return lemma;
 	}
 	
@@ -54,7 +56,9 @@ public class Utility{
 		String[] split_sent = sentence.split(" ");
 		for(String s: split_sent){					
 			s= CandidateTermExtractor.applyCharacterReplacement(s, JATEProperties.TERM_CLEAN_PATTERN);
-			modified_sent.append(s+" ");
+			//Ankit: to ignore double spaces in the sentence
+			if(s.length() > 0)
+				modified_sent.append(s+" ");
 		}		
 		return modified_sent.toString().trim();
 	}
@@ -63,11 +67,31 @@ public class Utility{
 	public static Set<String> getTermVariants_sent(String sent, Set<String> variants){
 		Set<String> TermVariants_Sent = new HashSet<String>();		
 		for(String variant: variants) {
+			//Ankit: testing
+//			if(sent.contains("learn") && variant.contains("learn"))
+//				System.out.println("Sent: "+sent+"\nVariant: "+variant);
+			
 			if(sent.contains(variant)) {
-				if((sent.indexOf(variant)==0 || sent.charAt(sent.indexOf(variant)-1)==' ') 
-						&& (sent.indexOf(variant)+variant.length()<sent.length() && sent.charAt(sent.indexOf(variant)+variant.length())== ' ')
-							||sent.indexOf(variant)+variant.length() == sent.length()) 
+				//Ankit: testing
+//				if(sent.contains("learn") && variant.equals("learn")){
+//					System.out.println("Sent: "+sent+"\nVariant: "+variant);
+//					System.out.println("char before check: "+(sent.charAt(sent.indexOf(variant)-1)==' '));
+//					System.out.println("char after check: "+(sent.charAt(sent.indexOf(variant)+variant.length())));
+//					System.out.println("check sentence length: "+(sent.indexOf(variant)+variant.length()<sent.length()));
+//				}
+			
+				//Ankit: Fix, it was skipping 'learn' if 'learning' occurred before it in a sentence, and similar cases
+//				if((sent.indexOf(variant)==0 || sent.charAt(sent.indexOf(variant)-1)==' ') 
+//						&& (sent.indexOf(variant)+variant.length()<sent.length() && sent.charAt(sent.indexOf(variant)+variant.length())== ' ')
+//							||sent.indexOf(variant)+variant.length() == sent.length()) 
+				
+				if(sent.startsWith(variant+' ') || sent.endsWith(' '+variant) || sent.equals(variant) ||sent.contains(' '+variant+' '))
+				{
 					TermVariants_Sent.add(variant);						
+					//Ankit: testing
+//					if(variant.equals("learn"))
+//						System.out.println("Sent Variant Added: "+variant);
+				}
 			}
 		}
 		return TermVariants_Sent;
@@ -75,9 +99,8 @@ public class Utility{
 	
 	/**
 	 * Returns the set of words after lemmatizing every word present in the input set of context words. */
-	public static Set<String> getLemmatizedWordSet(Set<String> word_set) throws IOException{
-		StopList stoplist = new StopList(true);
-		Lemmatizer lemmatizer = new Lemmatizer();		
+	//Ankit: added stoplist and lemmatizer as input parameters to avoid multiple allocations
+	public static Set<String> getLemmatizedWordSet(Set<String> word_set, StopList stoplist, Lemmatizer lemmatizer) throws IOException{
 		Set<String> LemmatizedWordSet = new HashSet<String>();		
 		for(String context: word_set){
 			String lemmatizedWord = getLemma(context, stoplist, lemmatizer);

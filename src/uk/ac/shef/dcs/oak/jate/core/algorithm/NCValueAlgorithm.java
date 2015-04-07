@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
@@ -18,6 +18,8 @@ import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.model.Term;
 import uk.ac.shef.dcs.oak.jate.util.Utility;
+import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
+import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 /**
 * An implementation of the NCValue term recognition algorithm. See Frantzi et. al 2000, <i>
@@ -35,7 +37,10 @@ public class NCValueAlgorithm implements Algorithm{
 	
 	private Map<String, Double> context_words;
 
-	public NCValueAlgorithm(){
+	private StopList stoplist;
+	private Lemmatizer lemmatizer;
+	
+	public NCValueAlgorithm(ContextExtraction contextExtract, StopList stoplist, Lemmatizer lemmatizer){
 		CValueTerms_Variants = new HashSet<String>();
 		Term_CW_Map = new HashMap<String,Set<String>>();
 		/*Term_CW_freqMap maps the compound key (combination of term and the context word) to the frequency of co-occurrence of that term-context word pair.
@@ -43,16 +48,22 @@ public class NCValueAlgorithm implements Algorithm{
 		 * The beautiful system shall update the files.
 		 * The frequency of co-occurence of term "system" and context word "update" is calculated as 2, whereby in one of the occurrence, "system" is found to be nested in another term "beautiful system".
 		 *  */
-		Term_CW_freqMap = new HashMap<String, Integer>();		
+		Term_CW_freqMap = new HashMap<String, Integer>();
+		//Ankit: setting the contextExtractor, stoplist and lemmatizer
+		this.stoplist = stoplist;
+		this.lemmatizer = lemmatizer;
+		this.contextExtraction = contextExtract;
 	}
 	
 	/**
 	 * Initializes the private variables of the class.
 	 */
 	public void initialize(NCValueFeatureWrapper featureWrapper) throws IOException{
-		this.contextExtraction = new ContextExtraction(featureWrapper.getTesterObject());		
-		CValueTerms_Variants = contextExtraction.getTopTerms(100);		
+		//this.contextExtraction = new ContextExtraction(featureWrapper.getTesterObject(),stoplist,lemmatizer);
+		//Ankit: fixed, getTopTerms had 100 percent hardcoded
+		CValueTerms_Variants = contextExtraction.getTopTerms(JATEProperties.getInstance().getPercentage());		
 		this.context_words = featureWrapper.getContextWordsMap();
+		
 	}
 	
 	
@@ -80,7 +91,7 @@ public class NCValueAlgorithm implements Algorithm{
 					while (it.hasNext())
 					{
 					   Entry<String,Integer> e = it.next();
-					   String lemmatized_Context = Utility.getLemma(e.getKey());
+					   String lemmatized_Context = Utility.getLemma(e.getKey(),stoplist,lemmatizer);
 						if(lemmatized_Context!= null && !lemmatized_Context.equals(e.getKey())){
 							freqMap.put(lemmatized_Context, e.getValue());
 							freqMap.remove(e.getKey());				
@@ -88,7 +99,7 @@ public class NCValueAlgorithm implements Algorithm{
 					}	
 					
 					for(String term : sent_CValueTermVariants){
-						term = Utility.getLemma(term);
+						term = Utility.getLemma(term,stoplist,lemmatizer);
 						if(freqMap.size() <= 0)
 							continue sentLoop;
 						/*

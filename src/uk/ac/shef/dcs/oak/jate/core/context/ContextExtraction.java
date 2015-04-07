@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.nlptools.NLPToolsControllerOpenNLP;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
@@ -15,6 +16,7 @@ import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.model.Term;
 import uk.ac.shef.dcs.oak.jate.test.AlgorithmTester;
 import uk.ac.shef.dcs.oak.jate.util.Utility;
+import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 import uk.ac.shef.dcs.oak.jate.util.control.StopList;
 
 /**
@@ -31,15 +33,18 @@ public class ContextExtraction{
 	
 	private Map<String,Set<String>> ContextWord_to_Term_Map;	
 	private Map<String, Double> ContextWord_Map;
+	private Lemmatizer lemmatizer;
 	
 	
-	public ContextExtraction(AlgorithmTester tester) throws IOException
+	//Ankit: added stoplist and lemmatizer as parameters to avoid multiple allocations
+	public ContextExtraction(AlgorithmTester tester, StopList stoplist, Lemmatizer lemmatizer) throws IOException
 	{
 		// To obtain reference of tester object for CValue Algorithm.
 		this.tester = tester;
 		//stoplist initialization
-		stoplist = new StopList(true);
+		this.stoplist = stoplist;
 		TopTerms_variants = new HashSet<String>();
+		this.lemmatizer = lemmatizer;
 	}
 	
 	/** Returns the candidate terms along with their C-Value scores identified by the C-Value Algorithm */
@@ -74,9 +79,10 @@ public class ContextExtraction{
 	/** This function makes calls to other functions for identification of the context words by making use of the 'top' candidate terms identified earlier.  */
 	public void ContextIdentification(Corpus corpus) throws IOException {
 		for (Document d : corpus) {
-			int i=0;
+			//Ankit: removed i as it was only for testing
+			//int i=0;
 			for (String sent: NLPToolsControllerOpenNLP.getInstance().getSentenceSplitter().sentDetect(d.getContent())) {
-				i++;				
+				//i++;				
 				sent = Utility.getModifiedSent(sent);		
 				Set<String> sent_TopTermVariants = new HashSet<String>();
 				sent_TopTermVariants.addAll(Utility.getTermVariants_sent(sent, TopTerms_variants));
@@ -84,7 +90,8 @@ public class ContextExtraction{
 				if(sent_TopTermVariants.size()>0){					
 					Set<String> ContextWords = ExtractContextWords(sent, sent_TopTermVariants);					
 					if( ContextWords.size() > 0 ){ 
-						CreateContext_To_TermMap(Utility.getLemmatizedWordSet(ContextWords), getCanonicalTermSet(sent_TopTermVariants));
+						//Ankit: added extra parameters to avoid multiple memory allocations
+						CreateContext_To_TermMap(Utility.getLemmatizedWordSet(ContextWords, stoplist, lemmatizer), getCanonicalTermSet(sent_TopTermVariants));
 						//System.out.println(i);
 					}
 				}

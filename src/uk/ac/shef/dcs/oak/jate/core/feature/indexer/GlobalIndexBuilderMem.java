@@ -1,12 +1,14 @@
 package uk.ac.shef.dcs.oak.jate.core.feature.indexer;
 
 import org.apache.log4j.Logger;
+
 import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.model.Corpus;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.core.npextractor.CandidateTermExtractor;
 import uk.ac.shef.dcs.oak.jate.core.npextractor.PhraseExtractor;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
@@ -69,7 +71,7 @@ public class GlobalIndexBuilderMem implements GlobalIndexBuilder{
 	
 	
 	//newly added for RAKE : code modified begins
-	public List<String> build(Corpus c, PhraseExtractor extractor) throws JATEException {		
+	public List<String> build(Corpus c, PhraseExtractor extractor) throws JATEException, IOException {		
 		return extractor.extract(c);	
 		
 	}

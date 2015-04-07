@@ -29,7 +29,7 @@ public class TestChiSquare{
 			String path_to_corpus = JATEProperties.getInstance().getCorpusPath();
 			String path_to_output = JATEProperties.getInstance().getResultPath();
 	
-			System.out.println("Started "+ TestChiSquare.class+"at: " + new Date() + "... For detailed progress see log file jate.log.");
+			System.out.println("Started "+ TestChiSquare.class+" at: " + new Date() + "... For detailed progress see log file jate.log.");
 
 			//creates instances of required processors and resources
 
@@ -67,7 +67,8 @@ public class TestChiSquare{
 			
 			//Execute chiSquare Algorithm
 			AlgorithmTester chiTester = new AlgorithmTester();
-			chiTester.registerAlgorithm(new ChiSquareAlgorithm(), new ChiSquareFeatureWrapper(tester));			
+			//Ankit: added the parameters to the constructor call to avoid multiple allocations
+			chiTester.registerAlgorithm(new ChiSquareAlgorithm(stop,lemmatizer,npextractor), new ChiSquareFeatureWrapper(tester));			
 			chiTester.execute(termDocIndex, path_to_output);
 			
 			System.out.println("Ended at: " + new Date());
