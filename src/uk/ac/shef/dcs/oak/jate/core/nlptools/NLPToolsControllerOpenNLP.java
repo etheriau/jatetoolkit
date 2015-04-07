@@ -33,16 +33,16 @@ public class NLPToolsControllerOpenNLP {
 	private Tokenizer _tokenizer;
 
 	private NLPToolsControllerOpenNLP() throws IOException {
-        POSModel posModel = new POSModel(new FileInputStream(JATEProperties.getInstance().getNLPPath()+"/en-pos-maxent.bin"));
+        POSModel posModel = new POSModel( JATEProperties.getInstance().getNLPInputStream( "/en-pos-maxent.bin") );
 		_posTagger = new POSTaggerME(posModel);
 
-        ChunkerModel chunkerModel = new ChunkerModel(new FileInputStream(JATEProperties.getInstance().getNLPPath()+"/en-chunker.bin"));
+        ChunkerModel chunkerModel = new ChunkerModel( JATEProperties.getInstance().getNLPInputStream( "/en-chunker.bin" ) );
 		_npChunker = new ChunkerME(chunkerModel);
 
-        TokenizerModel tokenizerModel = new TokenizerModel(new FileInputStream(JATEProperties.getInstance().getNLPPath()+"/en-token.bin"));
+        TokenizerModel tokenizerModel = new TokenizerModel( JATEProperties.getInstance().getNLPInputStream( "/en-token.bin" ) );
 		_tokenizer = new TokenizerME(tokenizerModel);
 
-        SentenceModel sentModel = new SentenceModel(new FileInputStream(JATEProperties.getInstance().getNLPPath()+"/en-sent.bin"));
+        SentenceModel sentModel = new SentenceModel( JATEProperties.getInstance().getNLPInputStream( "/en-sent.bin" ) );
         _sentDetect = new SentenceDetectorME(sentModel);
 
 

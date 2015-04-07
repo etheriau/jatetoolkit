@@ -1,5 +1,7 @@
 package uk.ac.shef.dcs.oak.jate;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Properties;
 import java.io.InputStream;
 import java.io.IOException;
@@ -70,8 +72,19 @@ public class JATEProperties {
         return _properties.getProperty(key);
     }
 
-    public String getNLPPath() {
+    public String getWorkPath() {
+        return "/tmp";
+    }
+
+    private String getNLPPath() {
         return getProperty(NLP_PATH);
+    }
+    public InputStream getNLPInputStream( String resource ) throws IOException {
+        String path = getNLPPath();
+        if ( path.startsWith( "jar:" ) ) {
+            return getClass().getClassLoader().getResourceAsStream( path.substring( "jar:".length() )  + File.separator + resource );
+        }
+        return new FileInputStream( path + File.separator + resource );
     }
 
     public int getMaxMultipleWords() {

@@ -2,11 +2,8 @@ package uk.ac.shef.dcs.oak.jate.util.control;
 
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 
+import java.io.*;
 import java.util.HashSet;
-import java.io.File;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.Set;
 
 /**
@@ -30,8 +27,7 @@ public class StopList implements IStopList {
 	public StopList (final boolean caseSensitive) throws IOException {
 		super();
 		_caseSensitive =caseSensitive;
-		loadStopList(new File(
-				JATEProperties.getInstance().getNLPPath()+"/stoplist.txt"),_caseSensitive);
+		loadStopList( JATEProperties.getInstance().getNLPInputStream( "stoplist.txt" ),_caseSensitive);
 	}
 
 	/**
@@ -43,15 +39,19 @@ public class StopList implements IStopList {
 		return words.contains(word);
 	}
 
-	private void loadStopList(final File stopListFile, final boolean lowercase) throws IOException {
-      final BufferedReader reader = new BufferedReader(new FileReader(stopListFile));
-      String line;
-      while ((line = reader.readLine()) != null) {
-         line = line.trim();
-         if (line.equals("") || line.startsWith("//")) continue;
-         if(lowercase) words.add(line.toLowerCase());
-	      else words.add(line);
-      }
+	private void loadStopList(final InputStream stream, final boolean lowercase) throws IOException {
+      final BufferedReader reader = new BufferedReader(new InputStreamReader( stream ));
+	  try {
+		  String line;
+		  while ((line = reader.readLine()) != null) {
+			  line = line.trim();
+			  if (line.equals("") || line.startsWith("//")) continue;
+			  if (lowercase) words.add(line.toLowerCase());
+			  else words.add(line);
+		  }
+	  } finally {
+		  reader.close();
+	  }
    }
 
 }

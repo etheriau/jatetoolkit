@@ -66,7 +66,7 @@ public class Lemmatizer extends Normalizer {
 
 
 	private void init() {
-		lemmatizer = new EngLemmatiser(JATEProperties.getInstance().getNLPPath()+"/lemmatizer", false, true);
+		lemmatizer = new EngLemmatiser(JATEProperties.getInstance().getWorkPath()+"/lemmatizer", false, true);
 		tagLookUp.put("NN", 1);
 		tagLookUp.put("NNS", 1);
 		tagLookUp.put("NNP", 1);
