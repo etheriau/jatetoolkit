@@ -14,17 +14,6 @@ status = 'integration'
 sourceCompatibility = 1.6 
 targetCompatibility = 1.6 
 
-sourceSets {
-  //test {
-  //  java {
-  //    testDir 'test/'
-  //  }   
-  //}
-}
-
-configurations {
-}
-
 repositories {
   mavenLocal()
   mavenCentral()
@@ -38,8 +27,8 @@ dependencies {
   compile group: 'org.hsqldb', name: 'hsqldb', version: '2.2.4'
   compile group: 'org.hsqldb', name: 'sqltool', version: '2.2.4'
   compile files(
-"libs/dragon/dragontool.jar",
-"libs/wit-commons/wit-commons.jar"
+    "libs/dragon/dragontool.jar",
+    "libs/wit-commons/wit-commons.jar"
  )
 }
 

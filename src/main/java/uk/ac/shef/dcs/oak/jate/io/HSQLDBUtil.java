@@ -49,7 +49,7 @@ public class HSQLDBUtil {
             e.printStackTrace();
         } finally {
             try {
-                st.close();
+                if ( st != null ) st.close();
             } catch ( SQLException sqe ) {
                 _logger.error( "Error closing statement: ", sqe );
             }

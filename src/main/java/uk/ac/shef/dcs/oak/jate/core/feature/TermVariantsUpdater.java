@@ -8,8 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndexMem;
-import uk.ac.shef.dcs.oak.jate.util.control.IStopList;
-import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 
 /**
  * Newly added for improving the variants detection for a term.
