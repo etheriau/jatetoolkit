@@ -18,7 +18,7 @@ import java.util.*;
  */
 public class NGramExtractor extends CandidateTermExtractor {
 
-    private static Logger _logger = Logger.getLogger(NGramExtractor.class);
+    private static final Logger _logger = Logger.getLogger(NGramExtractor.class);
 
 
     public NGramExtractor(IStopList stop, Normalizer normaliser) throws IOException {
@@ -77,7 +77,7 @@ public class NGramExtractor extends CandidateTermExtractor {
 
                     String[] nelements = str.split("\\s+");
                     if (nelements.length < 1 || nelements.length >
-                            Integer.valueOf(JATEProperties.getInstance().getMaxMultipleWords()))
+                            JATEProperties.getInstance().getMaxMultipleWords())
                         continue;
                     if (JATEProperties.getInstance().isIgnoringDigits() &&
                             containsDigit(str))
@@ -106,10 +106,9 @@ public class NGramExtractor extends CandidateTermExtractor {
 
         int begin = 0;
         int end = begin + n - 1>=tokens.length?tokens.length-1:begin + n - 1;
-        Integer positions[] = new Integer[2];
 
         while (end < tokens.length) {
-            positions = new Integer[2];
+            Integer [] positions = new Integer[2];
             positions[0] = begin;
             positions[1] = end;
             ng.add(positions);
@@ -131,7 +130,7 @@ public class NGramExtractor extends CandidateTermExtractor {
             while (begin != end) {
                 int smallEnd = end - 1;
                 while (smallEnd >= begin &&smallEnd<tokens.length) {
-                    positions = new Integer[2];
+                    Integer[] positions = new Integer[2];
                     positions[0] = begin;
                     positions[1] = smallEnd;
                     ng.add(positions);

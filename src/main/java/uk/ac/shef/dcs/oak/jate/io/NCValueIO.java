@@ -19,7 +19,11 @@ public class NCValueIO{
 		 
 		 File directory = new File( path );
 		 boolean found = false;
-		 for( File f : directory.listFiles() )
+		 File[] files = directory.listFiles();
+		 if ( files == null ) {
+			 return false;
+		 }
+		 for( File f : files)
 		 {
 		    if( f.getName().equals( fname ) )
 		    {
@@ -81,8 +85,7 @@ public class NCValueIO{
 		}catch (Exception e){//Catch exception if any
 			  System.err.println("Error: " + e.getMessage());
 		}
-		Term[] all = result.toArray(new Term[0]);
-		return all;		
+		return result.toArray( new Term[ result.size() ] );
 	}
 	
 	

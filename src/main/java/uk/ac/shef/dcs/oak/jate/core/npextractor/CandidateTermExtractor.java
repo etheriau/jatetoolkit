@@ -95,23 +95,23 @@ public abstract class CandidateTermExtractor {
         StringBuilder sb = new StringBuilder();
         if (string.indexOf(" and ") != -1) {
             String[] parts = string.split("\\band\\b");
-            for (String s : parts) sb.append(s.trim() + "|");
+            for (String s : parts) sb.append(s.trim()).append("|");
         }
         else if (string.indexOf(" or ") != -1) {
             String[] parts = string.split("\\bor\\b");
-            for (String s : parts) sb.append(s.trim() + "|");
+            for (String s : parts) sb.append(s.trim()).append("|");
         }
         else if (string.indexOf(",") != -1) {
             if (!containsDigit(string)) {
                 String[] parts = string.split("\\,");
-                for (String s : parts) sb.append(s.trim() + "|");
+                for (String s : parts) sb.append(s.trim()).append("|");
             }
         } else {
             sb.append(string);
         }
         String v = sb.toString();
         if (v.endsWith("|")) v = v.substring(0, v.lastIndexOf("|"));
-        return v.toString().split("\\|");
+        return v.split("\\|");
     }
     
     //code modification ends

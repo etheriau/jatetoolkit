@@ -23,16 +23,16 @@ import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
  */
 
 public class ContextExtraction{
-	private AlgorithmTester tester;		
-	private IStopList stoplist;
+	private final AlgorithmTester tester;
+	private final IStopList stoplist;
 	
-	private Set<String> TopTerms_variants;
+	private final Set<String> TopTerms_variants;
 	private int TopTerms_Count;
 	private Term[] Top_Terms;
 	
-	private Map<String,Set<String>> ContextWord_to_Term_Map;	
+	private Map<String,Set<String>> ContextWord_to_Term_Map;
 	private Map<String, Double> ContextWord_Map;
-	private Lemmatizer lemmatizer;
+	private final Lemmatizer lemmatizer;
 	
 	
 	//Ankit: added stoplist and lemmatizer as parameters to avoid multiple allocations

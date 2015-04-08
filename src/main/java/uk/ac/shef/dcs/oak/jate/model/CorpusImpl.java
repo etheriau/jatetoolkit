@@ -1,5 +1,7 @@
 package uk.ac.shef.dcs.oak.jate.model;
 
+import org.apache.log4j.Logger;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
@@ -12,8 +14,9 @@ import java.io.File;
 
 
 public class CorpusImpl implements Corpus {
+	private static final Logger _logger = Logger.getLogger(CorpusImpl.class);
 
-	private Set<Document> _docs;
+	private final Set<Document> _docs;
 
 	public CorpusImpl(){
 		_docs = new HashSet<Document>();
@@ -28,11 +31,13 @@ public class CorpusImpl implements Corpus {
 		File targetFolder = new File(path);
 		
 		File[] files = targetFolder.listFiles();
-		for (File f : files) {
-			try {
-				this.add(new DocumentImpl(f.toURI().toURL()));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
+		if ( files != null ) {
+			for (File f : files) {
+				try {
+					this.add(new DocumentImpl(f.toURI().toURL()));
+				} catch (MalformedURLException e) {
+					_logger.error( "Error processing " + f, e );
+				}
 			}
 		}
 	}

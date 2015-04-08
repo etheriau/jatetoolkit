@@ -17,7 +17,7 @@ public class StopList implements IStopList {
 
 	private final Set<String> words = new HashSet<String>();
 
-	private boolean _caseSensitive;
+	private final boolean _caseSensitive;
 
 	/**
 	 * Creates an instance of stop word list

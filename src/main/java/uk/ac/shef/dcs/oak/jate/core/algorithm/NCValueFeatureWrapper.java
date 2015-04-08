@@ -10,8 +10,8 @@ import uk.ac.shef.dcs.oak.jate.test.AlgorithmTester;
 public class NCValueFeatureWrapper extends AbstractFeatureWrapper {
 
 	private final Corpus corpus;
-	private Map<String, Double> _contextWords;
-	private AlgorithmTester _tester;
+	private final Map<String, Double> _contextWords;
+	private final AlgorithmTester _tester;
 	
 	
 	public NCValueFeatureWrapper(Corpus corpus, Map<String, Double> contextWords, AlgorithmTester tester){

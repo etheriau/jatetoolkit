@@ -55,7 +55,7 @@ public class TestChiSquare{
 			GlobalIndexMem termDocIndex = builder.build(corpus, npextractor);
 
 			/*newly added for improving frequency count calculation: begins*/
-			TermVariantsUpdater update = new TermVariantsUpdater(termDocIndex, stop, lemmatizer);
+			TermVariantsUpdater update = new TermVariantsUpdater(termDocIndex);
 			GlobalIndexMem termIndex = update.updateVariants();
 			/*newly added for improving frequency count calculation: ends*/
 			

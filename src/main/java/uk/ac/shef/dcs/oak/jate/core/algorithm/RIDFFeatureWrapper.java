@@ -8,7 +8,7 @@ import java.util.Set;
  * feature wrapper for the RIDF algorithm
  */
 public class RIDFFeatureWrapper extends AbstractFeatureWrapper {
-    private FeatureCorpusTermFrequency _termFreq;
+    private final FeatureCorpusTermFrequency _termFreq;
 
 	/**
 	 * Default constructor

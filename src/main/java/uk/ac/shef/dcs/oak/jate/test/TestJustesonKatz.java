@@ -52,7 +52,7 @@ public class TestJustesonKatz {
 		/*newly added for improving frequency count calculation: begins*/
 		
 		
-		TermVariantsUpdater update = new TermVariantsUpdater(termDocIndex, stop, lemmatizer);
+		TermVariantsUpdater update = new TermVariantsUpdater(termDocIndex);
 		 
 		
 		GlobalIndexMem termIndex = update.updateVariants();

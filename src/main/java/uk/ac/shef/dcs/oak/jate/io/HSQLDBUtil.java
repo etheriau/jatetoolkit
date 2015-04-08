@@ -1,4 +1,5 @@
 package uk.ac.shef.dcs.oak.jate.io;
+import org.apache.log4j.Logger;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.model.DocumentImpl;
 
@@ -12,6 +13,7 @@ import java.util.Set;
  * An utility class for reading and writing data in a GlobalIndex object into HSQL persistence
  */
 public class HSQLDBUtil {
+    private static final Logger _logger = Logger.getLogger(HSQLDBUtil.class);
 
     public static final String VALUE_SEPARATOR=",";
 
@@ -42,10 +44,20 @@ public class HSQLDBUtil {
         try {
             st = conn.createStatement();
             st.execute("SHUTDOWN");
-            conn.close();
         } catch (SQLException e) {
             System.err.println("Error - Database may not be closed properly.");
             e.printStackTrace();
+        } finally {
+            try {
+                st.close();
+            } catch ( SQLException sqe ) {
+                _logger.error( "Error closing statement: ", sqe );
+            }
+            try {
+                conn.close();
+            } catch ( SQLException sqe ) {
+                _logger.error( "Error closing connection: ", sqe );
+            }
         }
     }
 

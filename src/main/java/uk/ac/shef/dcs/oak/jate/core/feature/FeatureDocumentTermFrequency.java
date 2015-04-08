@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FeatureDocumentTermFrequency extends AbstractFeature {
 
-    private Map<Integer, Map<Integer, Integer>> _termInDocFreqMap = new ConcurrentHashMap<Integer, Map<Integer, Integer>>();
+    private final Map<Integer, Map<Integer, Integer>> _termInDocFreqMap = new ConcurrentHashMap<Integer, Map<Integer, Integer>>();
 
     private int _totalTermFreq = 0;
 

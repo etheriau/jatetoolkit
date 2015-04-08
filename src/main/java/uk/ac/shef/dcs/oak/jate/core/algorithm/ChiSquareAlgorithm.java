@@ -30,17 +30,17 @@ import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 
 public class ChiSquareAlgorithm implements Algorithm {
 	
-	private Map<String, Integer> cooccurence_map;	// freq(w,g) calculation => key:"term+frequentTerm" value: co-occurence freq 
-	private Map<String, Set<String>> cooccurence_list; // nw and pg calculation => key:"lemmatized term" value:"set of terms in sentences where term appears"
+	private final Map<String, Integer> cooccurence_map;	// freq(w,g) calculation => key:"term+frequentTerm" value: co-occurence freq
+	private final Map<String, Set<String>> cooccurence_list; // nw and pg calculation => key:"lemmatized term" value:"set of terms in sentences where term appears"
 	
-	private Map<String, Set<String>> frequentTerms_variants_Map;
-//	private Set<String> all_terms_variants; 
-	private List<Term> ngrams;
+	private final Map<String, Set<String>> frequentTerms_variants_Map;
+//	private final Set<String> all_terms_variants;
+	private final List<Term> ngrams;
 	private ChiSquareFeatureWrapper chiFeatureStore;
-	IStopList stoplist;
-	Lemmatizer lemmatizer;
+	private final IStopList stoplist;
+	private final Lemmatizer lemmatizer;
 	//Ankit: noun phrase extractor
-	CandidateTermExtractor extractor;
+	private final CandidateTermExtractor extractor;
 	
 	public ChiSquareAlgorithm(IStopList stoplist, Lemmatizer lemmatizer, CandidateTermExtractor extractor) throws IOException{
 		ngrams = new ArrayList<Term>();
@@ -81,7 +81,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 			}
 				
 				int FrequentTerms_Count = percent_TopTerms*ngrams.size()/100;
-				Term[] Frequent_Terms = Arrays.copyOf(ngrams.toArray(new Term[0]),FrequentTerms_Count);
+				Term[] Frequent_Terms = Arrays.copyOf(ngrams.toArray(new Term[ngrams.size()]),FrequentTerms_Count);
 				for(Term term: Frequent_Terms){
 					Set<String> FrequentTerms_variants =  new HashSet<String>();
 					FrequentTerms_variants.addAll(chiFeatureStore.getVariants(term.getConcept()));
@@ -249,7 +249,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 		Set<Term> result = new HashSet<Term>();
 		
 		int freqwg;
-		double nw, pg=0;
+		double nw, pg;
 		double w_chiSqr;
 		double max_chiSqValue;
 		double tmp_chi_val;			//Ankit: temp variable to avoid re-calculating the chi-square value 3 times
@@ -284,7 +284,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 			w_chiSqr -= max_chiSqValue;
 			result.add(new Term(w.getKey(), w_chiSqr));
 		}			
-		Term[] all = result.toArray(new Term[0]);		
+		Term[] all = result.toArray(new Term[result.size()]);
 		Arrays.sort(all);
 		return all;
 	}

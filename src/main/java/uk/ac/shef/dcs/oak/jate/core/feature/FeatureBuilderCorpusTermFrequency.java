@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class FeatureBuilderCorpusTermFrequency extends AbstractFeatureBuilder {
 
-	private static Logger _logger = Logger.getLogger(FeatureBuilderCorpusTermFrequency.class);
+	private static final Logger _logger = Logger.getLogger(FeatureBuilderCorpusTermFrequency.class);
 
 	/**
 	 * Creates an instance

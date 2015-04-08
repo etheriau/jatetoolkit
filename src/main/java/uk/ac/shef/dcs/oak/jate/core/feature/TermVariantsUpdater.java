@@ -15,11 +15,11 @@ import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
  * Newly added for improving the variants detection for a term.
  */
 public class TermVariantsUpdater{
-	private GlobalIndexMem _index;
+	private final GlobalIndexMem _index;
 	
-	private Map<String, Set<String>> additionalVariantsMap;
+	private final Map<String, Set<String>> additionalVariantsMap;
 	
-	public TermVariantsUpdater(GlobalIndexMem termDocIndex, IStopList stoplist, Lemmatizer lemmatizer) {
+	public TermVariantsUpdater(GlobalIndexMem termDocIndex) {
 		// TODO Auto-generated constructor stub
 		_index = termDocIndex;
 		additionalVariantsMap = new HashMap<String, Set<String>>();

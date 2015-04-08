@@ -26,17 +26,17 @@ import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 
 public class NCValueAlgorithm implements Algorithm{
 	
-	private ContextExtraction contextExtraction;
+	private final ContextExtraction contextExtraction;
 	
 	private Set<String> CValueTerms_Variants;
 	
-	private Map<String, Set<String>> Term_CW_Map;
-	private Map<String, Integer> Term_CW_freqMap;
+	private final Map<String, Set<String>> Term_CW_Map;
+	private final Map<String, Integer> Term_CW_freqMap;
 	
 	private Map<String, Double> context_words;
 
-	private IStopList stoplist;
-	private Lemmatizer lemmatizer;
+	private final IStopList stoplist;
+	private final Lemmatizer lemmatizer;
 	
 	public NCValueAlgorithm(ContextExtraction contextExtract, IStopList stoplist, Lemmatizer lemmatizer){
 		CValueTerms_Variants = new HashSet<String>();
@@ -79,8 +79,7 @@ public class NCValueAlgorithm implements Algorithm{
 				sent_CValueTermVariants.addAll(Utility.getTermVariants_sent(sent, CValueTerms_Variants));				
 				
 				if(sent_CValueTermVariants.size()>0){					
-					Set<String> ContextWords = new HashSet<String>();
-					ContextWords = contextExtraction.ExtractContextWords(sent, sent_CValueTermVariants);
+					Set<String> ContextWords = contextExtraction.ExtractContextWords(sent, sent_CValueTermVariants);
 					Map<String,Integer> freqMap = CalculateFrequency(sent, ContextWords);
 					Map<String,Integer> freqMap_copy = new HashMap<String, Integer>();
 					freqMap_copy.putAll(freqMap);
@@ -229,7 +228,7 @@ public class NCValueAlgorithm implements Algorithm{
 			result.add(new Term(term.getConcept(), score));				
 		}
 		
-		Term[] all = result.toArray(new Term[0]);
+		Term[] all = result.toArray(new Term[result.size()]);
 		Arrays.sort(all);
 		return all;	
 		

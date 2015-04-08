@@ -15,7 +15,7 @@ import java.util.StringTokenizer;
 public class Lemmatizer extends Normalizer {
 
 	private EngLemmatiser lemmatizer;
-	private Map<String, Integer> tagLookUp = new HashMap<String, Integer>();
+	private final Map<String, Integer> tagLookUp = new HashMap<String, Integer>();
 
 	public Lemmatizer() {
 		init();

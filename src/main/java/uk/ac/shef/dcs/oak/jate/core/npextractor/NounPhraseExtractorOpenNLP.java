@@ -31,7 +31,7 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
 
 	
 	
-	private static Logger _logger = Logger.getLogger(NounPhraseExtractorOpenNLP.class);
+	private static final Logger _logger = Logger.getLogger(NounPhraseExtractorOpenNLP.class);
  
     /**
      * Creates an instance with specified stopwords list and norm
@@ -169,7 +169,7 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
 
                     String[] nelements = str.split("\\s+");
                     if (nelements.length < 1 || nelements.length >
-                            Integer.valueOf(JATEProperties.getInstance().getMaxMultipleWords()))
+                            JATEProperties.getInstance().getMaxMultipleWords())
                         continue;
                     if (JATEProperties.getInstance().isIgnoringDigits() &&
                             containsDigit(str))
@@ -202,10 +202,9 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
         }
         */
         List<String> candidates = new ArrayList<String>();
-        String phrase = "";
         for (int n = 0; n < tokens.length; n++) {
             if (phrases[n].equals("B-NP")) {
-                phrase = tokens[n];
+                String phrase = tokens[n];
                 for (int m = n + 1; m < tokens.length; m++) {
                     if (phrases[m].equals("I-NP")) {
                         phrase = phrase + " " + tokens[m];
@@ -220,7 +219,7 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
 
             }
         }
-        return candidates.toArray(new String[0]);
+        return candidates.toArray(new String[candidates.size()]);
     }
 
    

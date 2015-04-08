@@ -11,7 +11,7 @@ import java.util.*;
  * Serves the same goal as FeatureBuilderTermNest. Uses multiple threads for counting
  */
 public class FeatureBuilderTermNestMultiThread extends AbstractFeatureBuilder {
-    private static Logger _logger = Logger.getLogger(FeatureBuilderTermNestMultiThread.class);
+    private static final Logger _logger = Logger.getLogger(FeatureBuilderTermNestMultiThread.class);
 
     /**
      * Default constructor
@@ -70,6 +70,7 @@ public class FeatureBuilderTermNestMultiThread extends AbstractFeatureBuilder {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
 
             finished = true;
@@ -81,9 +82,9 @@ public class FeatureBuilderTermNestMultiThread extends AbstractFeatureBuilder {
     }
 
     private class TermNestCheckerSingleThread extends Thread {
-        private Set<String> nps;
-        private Set<String> allnps;
-        private FeatureTermNest feature;
+        private final Set<String> nps;
+        private final Set<String> allnps;
+        private final FeatureTermNest feature;
         private boolean finished;
 
         public TermNestCheckerSingleThread(Set<String> nps, Set<String> allnps, FeatureTermNest feature) {

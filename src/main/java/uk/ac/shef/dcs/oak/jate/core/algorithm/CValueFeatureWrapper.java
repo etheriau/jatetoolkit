@@ -14,8 +14,8 @@ import java.util.Set;
  */
 public class CValueFeatureWrapper extends AbstractFeatureWrapper {
 
-	private FeatureCorpusTermFrequency _termFreq;
-	private FeatureTermNest _termNest;
+	private final FeatureCorpusTermFrequency _termFreq;
+	private final FeatureTermNest _termNest;
 
 	/**
 	 * Creates an instance. CValueFeatureWrapper wraps an instance of FeatureCorpusTermFrequency and an instance of FeatureTermNest

@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 
 public class FeatureBuilderTermNest extends AbstractFeatureBuilder {
 
-    private static Logger _logger = Logger.getLogger(FeatureBuilderTermNest.class);
+    private static final Logger _logger = Logger.getLogger(FeatureBuilderTermNest.class);
 
     /**
      * Default constructor
@@ -68,7 +68,7 @@ public class FeatureBuilderTermNest extends AbstractFeatureBuilder {
              Iterator<String> it = variants_np.iterator();
              while(it.hasNext())
              {
-             	pattern.append(it.next()+ "|");                        		
+             	pattern.append(it.next()).append("|");
              }
              
              pattern.deleteCharAt(pattern.length()-1);

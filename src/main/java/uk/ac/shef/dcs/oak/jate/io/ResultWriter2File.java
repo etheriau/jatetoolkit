@@ -18,7 +18,7 @@ import java.util.Set;
 
 public class ResultWriter2File {
 
-	private GlobalIndex _index;
+	private final GlobalIndex _index;
 
 	/*modified code begins:RAKE*/
 	

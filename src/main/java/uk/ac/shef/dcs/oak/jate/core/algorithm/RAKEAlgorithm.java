@@ -32,7 +32,7 @@ public class RAKEAlgorithm implements Algorithm {
 			int wordlistdegree = wordlistlength - 1;
 			for(String word:wordlist){
 				int freq;
-				if(wordfreq.containsKey(word)==false)
+				if( ! wordfreq.containsKey(word) )
 					wordfreq.put(word, 1);
 				else
 				{
@@ -41,7 +41,7 @@ public class RAKEAlgorithm implements Algorithm {
 					wordfreq.put(word, freq);
 				}
 				
-				if(worddegree.containsKey(word)==false)
+				if( ! worddegree.containsKey(word) )
 					worddegree.put(word, wordlistdegree);
 				else
 				{
@@ -81,7 +81,7 @@ public class RAKEAlgorithm implements Algorithm {
 			}
 			result.add(new Term(candidate, score));			
 		}
-		Term[] all = result.toArray(new Term[0]);
+		Term[] all = result.toArray(new Term[result.size()]);
 		Arrays.sort(all);
 		return all;
 	}

@@ -15,9 +15,9 @@ import java.util.Set;
 
 
 public class WeirdnessFeatureWrapper extends AbstractFeatureWrapper {
-	private FeatureCorpusTermFrequency _wordFreq;
-	private FeatureCorpusTermFrequency _termFreq;
-	private FeatureRefCorpusTermFrequency _refWordFreq;
+	private final FeatureCorpusTermFrequency _wordFreq;
+	private final FeatureCorpusTermFrequency _termFreq;
+	private final FeatureRefCorpusTermFrequency _refWordFreq;
 
 	public WeirdnessFeatureWrapper(FeatureCorpusTermFrequency wordFreq,
 	                               FeatureCorpusTermFrequency termFreq,

@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class FrequencyFeatureWrapper extends AbstractFeatureWrapper{
 
-	private FeatureCorpusTermFrequency _termFreq;
+	private final FeatureCorpusTermFrequency _termFreq;
 
 	/**
 	 * Default constructor

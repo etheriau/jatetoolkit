@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class DocumentImpl implements Document{
 
-	protected URL _url;
+	protected final URL _url;
 
    public DocumentImpl(URL url) {
 	   _url = url;

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class WeightedOutput {
 
-	private List<Term> _result;
-	private double _weight;
+	private final List<Term> _result;
+	private final double _weight;
 
 	/**
 	 * Creates an instance which holds ranked list of terms extracted by an algorithm, and the voting power (weight) assigned

@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class GlobalIndexBuilderMem implements GlobalIndexBuilder{
 
-	private static Logger _logger = Logger.getLogger(GlobalIndexBuilderMem.class);
+	private static final Logger _logger = Logger.getLogger(GlobalIndexBuilderMem.class);
 
 	private boolean BUILD_TERM_TO_DOC_MAP = true;
 	private boolean BUILD_DOC_TO_TERM_MAP = true;

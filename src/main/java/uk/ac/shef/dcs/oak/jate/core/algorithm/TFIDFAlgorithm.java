@@ -35,7 +35,7 @@ public class TFIDFAlgorithm implements Algorithm {
 			result.add(new Term(s,tf*idf));
 		}
 
-		Term[] all  = result.toArray(new Term[0]);
+		Term[] all  = result.toArray(new Term[result.size()]);
 		Arrays.sort(all);
 		return all;
 	}

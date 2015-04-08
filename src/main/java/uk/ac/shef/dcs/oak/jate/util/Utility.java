@@ -59,7 +59,7 @@ public class Utility{
 			s= CandidateTermExtractor.applyCharacterReplacement(s, JATEProperties.TERM_CLEAN_PATTERN);
 			//Ankit: to ignore double spaces in the sentence
 			if(s.length() > 0)
-				modified_sent.append(s+" ");
+				modified_sent.append(s).append(" ");
 		}		
 		return modified_sent.toString().trim();
 	}

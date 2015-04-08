@@ -16,9 +16,9 @@ import java.util.Set;
 
 
 public class GlossExFeatureWrapper extends AbstractFeatureWrapper {
-	private FeatureCorpusTermFrequency _termFreq;
-	private FeatureCorpusTermFrequency _wordFreq;
-	private FeatureRefCorpusTermFrequency _refWordFreq;
+	private final FeatureCorpusTermFrequency _termFreq;
+	private final FeatureCorpusTermFrequency _wordFreq;
+	private final FeatureRefCorpusTermFrequency _refWordFreq;
 
 	/**
 	 * Default constructor

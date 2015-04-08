@@ -24,11 +24,14 @@ public class FileLoader {
 		List<File> result = new ArrayList<File>();
 
 		File[] filesAndDirs = dir.listFiles();
+		if ( filesAndDirs == null ) {
+			return result;
+		}
 		List<File> filesDirs = Arrays.asList(filesAndDirs);
 		Iterator<File> filesIter = filesDirs.iterator();
 		File file;
 		while (filesIter.hasNext()) {
-			file = (File) filesIter.next();
+			file = filesIter.next();
 			if (file.isFile()) result.add(file); //always add, even if directory
 			else {
 				List<File> deeperList = getFileRecursive(file);
@@ -50,6 +53,9 @@ public class FileLoader {
 		Set<File> result = new HashSet<File>();
 
 		File[] filesAndDirs = dir.listFiles();
+		if ( filesAndDirs == null ) {
+			return new ArrayList<File>();
+		}
 		List<File> filesDirs = Arrays.asList(filesAndDirs);
 		Iterator<File> filesIter = filesDirs.iterator();
 		File file;

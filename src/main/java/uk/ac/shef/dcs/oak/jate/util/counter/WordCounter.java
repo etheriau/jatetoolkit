@@ -60,15 +60,19 @@ public class WordCounter {
 	 */
 	public static void main(String[] args) {
 		File targetFolder = new File(args[0]);
-      File[] files = targetFolder.listFiles();
+      	File[] files = targetFolder.listFiles();
+		if ( files == null ) {
+			System.err.println( "Unable to find files in " + args[0] );
+			return;
+		}
 		Corpus c = new CorpusImpl();
-      for (File f : files) {
+      	for (File f : files) {
 	      try {
 		      c.add(new DocumentImpl(f.toURI().toURL()));
 	      } catch (MalformedURLException e) {
 		      e.printStackTrace();
 	      }
-      }//for
+      	}//for
 
 		System.out.println(new WordCounter().countWords(c));
 	}

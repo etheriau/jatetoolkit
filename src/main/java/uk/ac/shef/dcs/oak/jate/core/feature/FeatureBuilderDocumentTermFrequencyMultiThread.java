@@ -17,7 +17,7 @@ import java.util.*;
  *  CPU but faster on large corpus
  */
 public class FeatureBuilderDocumentTermFrequencyMultiThread extends AbstractFeatureBuilder {
-    private static Logger _logger = Logger.getLogger(FeatureBuilderDocumentTermFrequencyMultiThread.class);
+    private static final Logger _logger = Logger.getLogger(FeatureBuilderDocumentTermFrequencyMultiThread.class);
 
     /**
      * Creates an instance
@@ -88,6 +88,7 @@ public class FeatureBuilderDocumentTermFrequencyMultiThread extends AbstractFeat
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
 
             finished = true;
@@ -101,11 +102,11 @@ public class FeatureBuilderDocumentTermFrequencyMultiThread extends AbstractFeat
 
     private class TermFreqCounterThread extends Thread {
 
-        private TermFreqCounter counter;
+        private final TermFreqCounter counter;
         private boolean finished;
-        private Set<Document> docs;
-        private GlobalIndex index;
-        private FeatureDocumentTermFrequency feature;
+        private final Set<Document> docs;
+        private final GlobalIndex index;
+        private final FeatureDocumentTermFrequency feature;
 
 
         public TermFreqCounterThread(TermFreqCounter counter, Set<Document> docs,

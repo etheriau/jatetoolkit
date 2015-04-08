@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FeatureCorpusTermFrequency extends AbstractFeature {
 
-    private Map<Integer, Integer> _termFreqMap = new ConcurrentHashMap<Integer, Integer>();
+    private final Map<Integer, Integer> _termFreqMap = new ConcurrentHashMap<Integer, Integer>();
     private int _totalCorpusTermFreq = 0;
 
     protected FeatureCorpusTermFrequency(GlobalIndex index) {

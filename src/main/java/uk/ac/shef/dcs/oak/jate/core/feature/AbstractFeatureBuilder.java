@@ -16,9 +16,9 @@ import uk.ac.shef.dcs.oak.jate.util.counter.WordCounter;
 
 public abstract class AbstractFeatureBuilder {
 
-	protected TermFreqCounter _termFreqCounter;// = new NPFreqCounter();
-	protected Normalizer _normaliser; //= new Lemmatizer();
-	protected WordCounter _wordCounter;// = new WordCounter();
+	protected final TermFreqCounter _termFreqCounter;
+	protected final Normalizer _normaliser;
+	protected final WordCounter _wordCounter;
 
 	/**
 	 * Creates an instance

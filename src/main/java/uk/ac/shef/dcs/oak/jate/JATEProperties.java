@@ -11,7 +11,7 @@ import java.io.IOException;
 
 
 public class JATEProperties {
-    private Properties _properties = new Properties();
+    private final Properties _properties = new Properties();
     private static JATEProperties _ref = null;
 
     //public static final String NP_FILTER_PATTERN = "[^a-zA-Z0-9\\-]";

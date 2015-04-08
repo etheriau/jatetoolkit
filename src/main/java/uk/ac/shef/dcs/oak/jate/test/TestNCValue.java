@@ -27,6 +27,10 @@ public class TestNCValue {
 			
 			/* Call the C-Value Algorithm first to get the resultant candidates with CValue score. */
 			AlgorithmTester tester = TestCValue.CValueTester(argument);
+		    if ( tester == null ) {
+				System.err.println( "Unable to find algorithm: " + argument );
+				return;
+			}
 			
 			//Ankit: added the required parameters stoplist and lemmatizer
 			StopList stoplist = new StopList(true);

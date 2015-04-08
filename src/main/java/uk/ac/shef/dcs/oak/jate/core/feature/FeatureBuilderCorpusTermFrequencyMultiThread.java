@@ -19,7 +19,7 @@ import java.util.*;
  * @author <a href="mailto:z.zhang@dcs.shef.ac.uk">Ziqi Zhang</a>
  */
 public class FeatureBuilderCorpusTermFrequencyMultiThread extends AbstractFeatureBuilder {
-    private static Logger _logger = Logger.getLogger(FeatureBuilderCorpusTermFrequencyMultiThread.class);
+    private static final Logger _logger = Logger.getLogger(FeatureBuilderCorpusTermFrequencyMultiThread.class);
 
     /**
      * Creates an instance
@@ -90,6 +90,7 @@ public class FeatureBuilderCorpusTermFrequencyMultiThread extends AbstractFeatur
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
 
             finished = true;
@@ -103,11 +104,11 @@ public class FeatureBuilderCorpusTermFrequencyMultiThread extends AbstractFeatur
 
     private class TermFreqCounterThread extends Thread {
 
-        private TermFreqCounter counter;
+        private final TermFreqCounter counter;
         private boolean finished;
-        private Set<Document> docs;
-        private GlobalIndex index;
-        private FeatureCorpusTermFrequency feature;
+        private final Set<Document> docs;
+        private final GlobalIndex index;
+        private final FeatureCorpusTermFrequency feature;
 
 
         public TermFreqCounterThread(TermFreqCounter counter, Set<Document> docs, GlobalIndex index, FeatureCorpusTermFrequency feature) {

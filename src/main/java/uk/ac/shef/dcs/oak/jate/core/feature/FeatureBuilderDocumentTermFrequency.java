@@ -24,7 +24,7 @@ import java.util.Set;
 
 public class FeatureBuilderDocumentTermFrequency extends AbstractFeatureBuilder {
 
-	private static Logger _logger = Logger.getLogger(FeatureBuilderDocumentTermFrequency.class);
+	private static final Logger _logger = Logger.getLogger(FeatureBuilderDocumentTermFrequency.class);
 
 	/**
 	 * Creates an instance

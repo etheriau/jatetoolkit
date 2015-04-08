@@ -86,7 +86,7 @@ public class GlobalIndexWriterHSQL {
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + DatabaseTables.TABLE_TERMVARIANT_2_ID.getTableName() + " VALUES (?, ?)");
             int count=0;
             for (Map.Entry<String, Integer> e : index.getVariantIdMap().entrySet()) {
-                pstmt.setString(1, e.getKey().toString());
+                pstmt.setString(1, e.getKey());
                 pstmt.setInt(2, e.getValue());
                 pstmt.addBatch();
 

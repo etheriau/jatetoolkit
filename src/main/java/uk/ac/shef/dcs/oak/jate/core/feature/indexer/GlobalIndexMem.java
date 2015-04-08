@@ -31,38 +31,38 @@ public class GlobalIndexMem extends GlobalIndex {
     /**
      * Term to TermId map
      */
-    protected HashMap<String, Integer> _termIdMap = new HashMap<String, Integer>();
+    protected final Map<String, Integer> _termIdMap = new HashMap<String, Integer>();
 
     /**
      * TermId to Term map (array index is TermID)
      */
-    protected ArrayList<String> _terms = new ArrayList<String>();
+    protected final  List<String> _terms = new ArrayList<String>();
 
     /**
      * Variant to VariantId map
      */
-    protected HashMap<String, Integer> _variantIdMap = new HashMap<String, Integer>();
+    protected final Map<String, Integer> _variantIdMap = new HashMap<String, Integer>();
 
     /**
      * VariantId to Variant map (array index is VariantID)
      */
-    protected ArrayList<String> _variants = new ArrayList<String>();
+    protected final List<String> _variants = new ArrayList<String>();
 
     /**
      * Document to DocumentId map
      */
-    protected HashMap<Document, Integer> _docIdMap = new HashMap<Document, Integer>();
+    protected final Map<Document, Integer> _docIdMap = new HashMap<Document, Integer>();
 
     /**
      * DocumentId to Document map (array index is DocumentID)
      */
-    protected ArrayList<Document> _documents = new ArrayList<Document>();
+    protected final List<Document> _documents = new ArrayList<Document>();
 
 
-    protected Map<Integer, Set<Integer>> _term2Docs = new HashMap<Integer, Set<Integer>>();
-    protected Map<Integer, Set<Integer>> _doc2Terms = new HashMap<Integer, Set<Integer>>();
-    protected Map<Integer, Set<Integer>> _term2Variants = new HashMap<Integer, Set<Integer>>();
-    protected Map<Integer, Integer> _variant2term = new HashMap<Integer, Integer>();
+    protected final Map<Integer, Set<Integer>> _term2Docs = new HashMap<Integer, Set<Integer>>();
+    protected final Map<Integer, Set<Integer>> _doc2Terms = new HashMap<Integer, Set<Integer>>();
+    protected final Map<Integer, Set<Integer>> _term2Variants = new HashMap<Integer, Set<Integer>>();
+    protected final Map<Integer, Integer> _variant2term = new HashMap<Integer, Integer>();
 
     protected GlobalIndexMem() {
     }

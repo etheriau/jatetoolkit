@@ -30,7 +30,7 @@ public class FrequencyAlgorithm implements Algorithm{
 			result.add(new Term(s,tf));
 		}
 
-		Term[] all  = result.toArray(new Term[0]);
+		Term[] all  = result.toArray(new Term[result.size()]);
 		Arrays.sort(all);
 		return all;
 	}

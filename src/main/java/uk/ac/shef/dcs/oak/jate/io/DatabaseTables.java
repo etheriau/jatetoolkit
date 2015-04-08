@@ -12,11 +12,11 @@ public enum DatabaseTables {
     TABLE_TERMID_2_TERMVARIDS("tableTermId2TermVarIds","termId","varIds","INTEGER","LONGVARCHAR"),
     TABLE_TERMVARID_2_TERMID("tableTermVarId2TermId","varId","termId","INTEGER","INTEGER");
 
-    private String tableName;
-    private String primaryKeyField;
-    private String valueField;
-    private String primaryKeyDatatype;
-    private String valueDatatype;
+    private final String tableName;
+    private final String primaryKeyField;
+    private final String valueField;
+    private final String primaryKeyDatatype;
+    private final String valueDatatype;
 
     DatabaseTables(String tableName, String primaryKeyField, String valueField, String primaryKeyDatatype, String valueDatatype){
         this.tableName=tableName;

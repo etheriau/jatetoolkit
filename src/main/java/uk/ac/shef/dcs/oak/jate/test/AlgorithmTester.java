@@ -30,10 +30,10 @@ import java.util.Map;
  * An example class that test all algorithms
  */
 public class AlgorithmTester {
+	private static final Logger _logger = Logger.getLogger(AlgorithmTester.class);
 
-	private Map<Algorithm, AbstractFeatureWrapper> _algregistry = new HashMap<Algorithm, AbstractFeatureWrapper>();
-	private static Logger _logger = Logger.getLogger(AlgorithmTester.class);
-	
+	private final Map<Algorithm, AbstractFeatureWrapper> _algregistry = new HashMap<Algorithm, AbstractFeatureWrapper>();
+
 	//NC Value code modification begins
 	
 	private Term[] result;

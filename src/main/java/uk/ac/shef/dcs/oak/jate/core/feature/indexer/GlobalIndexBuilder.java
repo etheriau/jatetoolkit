@@ -9,5 +9,5 @@ import uk.ac.shef.dcs.oak.jate.model.Corpus;
  */
 public interface GlobalIndexBuilder {
 
-    public GlobalIndex build(Corpus c, CandidateTermExtractor extractor) throws JATEException;
+    GlobalIndex build(Corpus c, CandidateTermExtractor extractor) throws JATEException;
 }

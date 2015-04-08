@@ -32,9 +32,9 @@ import java.util.Map;
 
 
 public class TestCValue {
+	private static final Logger _logger = Logger.getLogger(AlgorithmTester.class);
 
-	private Map<Algorithm, AbstractFeatureWrapper> _algregistry = new HashMap<Algorithm, AbstractFeatureWrapper>();
-	private static Logger _logger = Logger.getLogger(AlgorithmTester.class);
+	private final Map<Algorithm, AbstractFeatureWrapper> _algregistry = new HashMap<Algorithm, AbstractFeatureWrapper>();
 
 	public void registerAlgorithm(Algorithm a, AbstractFeatureWrapper f) {
 		_algregistry.put(a, f);
@@ -95,7 +95,7 @@ public class TestCValue {
 			/*newly added for improving frequency count calculation: begins*/
 			
 			
-			TermVariantsUpdater update = new TermVariantsUpdater(termDocIndex, stop, lemmatizer);
+			TermVariantsUpdater update = new TermVariantsUpdater(termDocIndex);
 			 
 			
 			GlobalIndexMem termIndex = update.updateVariants();

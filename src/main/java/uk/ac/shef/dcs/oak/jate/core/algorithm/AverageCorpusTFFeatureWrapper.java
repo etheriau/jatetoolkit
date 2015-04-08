@@ -8,7 +8,7 @@ import java.util.Set;
  * Feature wrapper for AverageCorpusTFAlgorithm
  */
 public class AverageCorpusTFFeatureWrapper extends AbstractFeatureWrapper{
-    private FeatureCorpusTermFrequency _termFreq;
+    private final FeatureCorpusTermFrequency _termFreq;
 
 	/**
 	 * Default constructor

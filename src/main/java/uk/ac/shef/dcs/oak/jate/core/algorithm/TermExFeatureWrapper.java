@@ -18,9 +18,9 @@ import java.util.Set;
 
 public class TermExFeatureWrapper extends AbstractFeatureWrapper {
 
-	private FeatureDocumentTermFrequency _termFreq;
-	private FeatureRefCorpusTermFrequency _refWordFreq;
-	private FeatureCorpusTermFrequency _wordFreq;
+	private final FeatureDocumentTermFrequency _termFreq;
+	private final FeatureRefCorpusTermFrequency _refWordFreq;
+	private final FeatureCorpusTermFrequency _wordFreq;
 
 	/**
 	 * Default constructor

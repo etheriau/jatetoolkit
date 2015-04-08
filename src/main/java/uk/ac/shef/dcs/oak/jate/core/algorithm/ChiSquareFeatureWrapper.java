@@ -13,7 +13,7 @@ import uk.ac.shef.dcs.oak.jate.test.AlgorithmTester;
 public class ChiSquareFeatureWrapper extends AbstractFeatureWrapper {
 
 	private final Corpus corpus;
-	private AlgorithmTester _tester;
+	private final AlgorithmTester _tester;
 
 	
 	public ChiSquareFeatureWrapper(Corpus corpus, AlgorithmTester tester){

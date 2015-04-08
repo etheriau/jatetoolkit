@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class FeatureRefCorpusTermFrequency extends AbstractFeature {
 
-	private Map<String, Integer> _refTermFreqMap = new HashMap<String, Integer>();
+	private final Map<String, Integer> _refTermFreqMap = new HashMap<String, Integer>();
 	private int _totalCorpusTermFreq=0;
 
 	protected FeatureRefCorpusTermFrequency(){

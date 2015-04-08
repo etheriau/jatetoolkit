@@ -96,7 +96,7 @@ public class Voting {
 	 * @param filename
 	 */
 	public void output(List<Term> target, String filename) {
-		Term[] result = target.toArray(new Term[0]);
+		Term[] result = target.toArray(new Term[target.size()]);
 		Arrays.sort(result);
 
 		try {

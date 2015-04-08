@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FeatureTermNest extends AbstractFeature {
 
-    private Map<Integer, Set<Integer>> _termNested = new ConcurrentHashMap<Integer, Set<Integer>>();
+    private final Map<Integer, Set<Integer>> _termNested = new ConcurrentHashMap<Integer, Set<Integer>>();
 
     protected FeatureTermNest(GlobalIndex index) {
         _index = index;

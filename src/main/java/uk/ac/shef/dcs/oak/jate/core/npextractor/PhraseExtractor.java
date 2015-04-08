@@ -14,8 +14,8 @@ import uk.ac.shef.dcs.oak.jate.util.control.Normalizer;
 
 
 public class PhraseExtractor {
-	protected IStopList _stoplist;
-	protected Normalizer _normaliser;
+	protected final IStopList _stoplist;
+	protected final Normalizer _normaliser;
 
     private boolean _removeStop = true;
     private int _minCharsInWord = 2;
@@ -70,11 +70,10 @@ public class PhraseExtractor {
         	
 		    int wordCounter = 0;
 		    //Ankit: added a flag used to mark the end of a sentence if a reference is put at the end of a sentence.
-		    boolean endFlag=false;
 		    StringBuilder sb = new StringBuilder();
 		        
 		    for (String temp_w : words) {
-		    	endFlag=false;
+		    	boolean endFlag=false;
 		    	//Ankit: To handle special cases where references end the sentence .[21] etc.
 		    	if(temp_w.matches("^\\.\\[[0-9]*.*")){
 		    		//Ankit: debug
@@ -132,7 +131,7 @@ public class PhraseExtractor {
 			     }
 			     else
 			     {
-			    	 sb.append(" " + nw);
+			    	 sb.append(" ").append(nw);
 			     }
 			            
 			     if(wordCounter == words.length)

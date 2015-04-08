@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class RAKEFeatureWrapper extends AbstractFeatureWrapper {
 
-	private List<String> _CandidateTerms;
+	private final List<String> _CandidateTerms;
 	
 	
 	
@@ -20,7 +20,6 @@ public class RAKEFeatureWrapper extends AbstractFeatureWrapper {
 	}
 
 	/**
-	 * @param term
 	 * @return number of occurrences of a term in a corpus. If a term cannot be found it always returns 1.
 	 */
 
