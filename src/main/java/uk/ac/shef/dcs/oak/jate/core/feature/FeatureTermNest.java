@@ -34,7 +34,7 @@ public class FeatureTermNest extends AbstractFeature {
     public Set<Integer> getNestIdsOf(String nested) {
         int termId = _index.retrieveTermCanonical(nested);
         if (termId == -1) {
-            //System.err.println("Term (" + nested + ") has not been indexed! Ignored.");
+            //_logger.info("Term (" + nested + ") has not been indexed! Ignored.");
             return new HashSet<Integer>();
         } else {
             return getNestIdsOf(termId);
@@ -60,9 +60,9 @@ public class FeatureTermNest extends AbstractFeature {
         int termId = _index.retrieveTermCanonical(nested);
         int nestId = _index.retrieveTermCanonical(nest);
         if (termId == -1) {
-            //System.err.println("Term (" + nested + ") has not been indexed! Ignored.");
+            //_logger.info("Term (" + nested + ") has not been indexed! Ignored.");
         } else if (nestId == -1) {
-            //System.err.println("Term (" + nest + ") has not been indexed! Ignored.");
+            //_logger.info("Term (" + nest + ") has not been indexed! Ignored.");
         } else {
             termNestIn(termId, nestId);
         }

@@ -53,9 +53,9 @@ public class FeatureDocumentTermFrequency extends AbstractFeature {
         int termId = _index.retrieveTermCanonical(t);
         int docId = _index.retrieveDocument(d);
         if (termId == -1) {
-            //System.err.println("Term (" + t + ") has not been indexed! Ignored.");
+            //_logger.info("Term (" + t + ") has not been indexed! Ignored.");
         } else if(docId==-1){
-            //System.err.println("Document (" + d.getUrl() + ") has not been indexed! Ignored.");
+            //_logger.info("Document (" + d.getUrl() + ") has not been indexed! Ignored.");
         }
         else {
             addToTermFreqInDoc(termId, docId, freq);
@@ -85,10 +85,10 @@ public class FeatureDocumentTermFrequency extends AbstractFeature {
         int termId = _index.retrieveTermCanonical(term);
         int docId = _index.retrieveDocument(d);
         if (termId == -1) {
-            //System.err.println("Term (" + term + ") has not been indexed! Ignored.");
+            //_logger.info("Term (" + term + ") has not been indexed! Ignored.");
             return 0;
         } else if(docId==-1){
-           //System.err.println("Document (" + d.getUrl() + ") has not been indexed! Ignored.");
+           //_logger.info("Document (" + d.getUrl() + ") has not been indexed! Ignored.");
             return 0;
         }
         else {
@@ -115,7 +115,7 @@ public class FeatureDocumentTermFrequency extends AbstractFeature {
     public int getTermFreqInDoc(String t, int d) {
         int termId = _index.retrieveTermCanonical(t);
         if (termId == -1) {
-            //System.err.println("Term (" + t + ") has not been indexed! Ignored.");
+            //_logger.info("Term (" + t + ") has not been indexed! Ignored.");
             return 0;
         } else {
             return getTermFreqInDoc(termId, d);
@@ -129,7 +129,7 @@ public class FeatureDocumentTermFrequency extends AbstractFeature {
     public int[] getTermAppear(String t) {
         int termId = _index.retrieveTermCanonical(t);
         if (termId == -1) {
-            //System.err.println("Term (" + t + ") has not been indexed! Ignored.");
+            //_logger.info("Term (" + t + ") has not been indexed! Ignored.");
             return new int[0];
         } else {
             if(_termInDocFreqMap.get(termId)==null)
@@ -152,7 +152,7 @@ public class FeatureDocumentTermFrequency extends AbstractFeature {
     public int getSumTermFreqInDocs(String term) {
         int termId = _index.retrieveTermCanonical(term);
         if (termId == -1) {
-            //System.err.println("Term (" + term + ") has not been indexed! Ignored.");
+            //_logger.info("Term (" + term + ") has not been indexed! Ignored.");
             return 0;
         } else {
             return getSumTermFreqInDocs(termId);

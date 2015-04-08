@@ -9,10 +9,13 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import uk.ac.shef.dcs.oak.jate.model.NCTermwithOriginals;
 import uk.ac.shef.dcs.oak.jate.model.Term;
 
 public class NCValueIO{
+	private static final Logger _logger = Logger.getLogger(NCValueIO.class);
+
 	public static boolean OutputFileExists(String fname, String path)
 	 {
 		// int indx = path.lastIndexOf( File.separator );
@@ -83,7 +86,7 @@ public class NCValueIO{
 			  //Close the input stream
 			  in.close();
 		}catch (Exception e){//Catch exception if any
-			  System.err.println("Error: " + e.getMessage());
+			  _logger.error("Error", e);
 		}
 		return result.toArray( new Term[ result.size() ] );
 	}

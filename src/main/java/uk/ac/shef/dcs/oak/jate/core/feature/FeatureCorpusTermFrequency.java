@@ -42,7 +42,7 @@ public class FeatureCorpusTermFrequency extends AbstractFeature {
     public void addToTermFreq(String term, int i) {
         int termId = _index.retrieveTermCanonical(term);
         if (termId == -1) {
-            //System.err.println("Term (" + term + ") has not been indexed!");
+            //_logger.info("Term (" + term + ") has not been indexed!");
         } else {
             addToTermFreq(termId, i);
         }
@@ -69,7 +69,7 @@ public class FeatureCorpusTermFrequency extends AbstractFeature {
     public void setTermFreq(String term, int freq) {
         int termId = _index.retrieveTermCanonical(term);
         if (termId == -1) {
-            //System.err.println("Term (" + term + ") has not been indexed!");
+            //_logger.info("Term (" + term + ") has not been indexed!");
         } else {
             setTermFreq(termId, freq);
         }
@@ -94,7 +94,7 @@ public class FeatureCorpusTermFrequency extends AbstractFeature {
     public int getTermFreq(String term) {
         int termId = _index.retrieveTermCanonical(term);
         if (termId == -1) {
-            //System.err.println("Term (" + term + ") has not been indexed!");
+            //_logger.info("Term (" + term + ") has not been indexed!");
             return 0;
         } else {
             return getTermFreq(termId);
@@ -125,7 +125,7 @@ public class FeatureCorpusTermFrequency extends AbstractFeature {
     public double getNormalizedTermFreq(String term) {
         int termId = _index.retrieveTermCanonical(term);
         if (termId == -1) {
-            //System.err.println("Term (" + term + ") has not been indexed!");
+            //_logger.info("Term (" + term + ") has not been indexed!");
             return 0.0;
         } else {
             return getNormalizedTermFreq(termId);

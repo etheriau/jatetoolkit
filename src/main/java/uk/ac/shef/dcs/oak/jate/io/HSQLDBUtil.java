@@ -31,9 +31,7 @@ public class HSQLDBUtil {
                     "");             // pwd
             return conn;
         } catch (Exception e) {
-            System.err.println("ERROR SEVERE - Cannot establish database connection to JATR internal database. Please check your " +
-                    "claspath to HSQL library, and database path: " + hsqldbName);
-            _logger.error( "SQL Exception", e );
+            _logger.error("Cannot establish database connection to JATR internal database. Please check your classpath to HSQL library, and database path: " + hsqldbName, e);
             System.exit(1);
         }
         return null;
@@ -45,8 +43,7 @@ public class HSQLDBUtil {
             st = conn.createStatement();
             st.execute("SHUTDOWN");
         } catch (SQLException e) {
-            System.err.println("Error - Database may not be closed properly.");
-            _logger.error( "SQL Exception", e );
+            _logger.error("Database may not be closed properly", e );
         } finally {
             try {
                 if ( st != null ) st.close();
