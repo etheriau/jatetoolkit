@@ -23,7 +23,6 @@ public class GlobalIndexWriterHSQL {
         conn = HSQLDBUtil.createHSQLDBConnection(dbpathFileSystem);
         try {
             HSQLDBUtil.createJATRGlobalIndexDB(conn);
-            HSQLDBUtil.createJATRGlobalIndexDB(conn);
         } catch (SQLException e) {
             _logger.error("Cannot establish connection to HSQL database", e);
             System.exit(1);
