@@ -20,11 +20,6 @@ public class ResultWriter2File {
 
 	private GlobalIndex _index;
 
-	/**
-	 * @param index an instance of GlobalIndexMem. The writer will read mapping data from term canonical from to variant
-	 * forms and output the result
-	 */
-	
 	/*modified code begins:RAKE*/
 	
 	public ResultWriter2File() {
@@ -32,9 +27,12 @@ public class ResultWriter2File {
 	}
 	
 	/*modified code ends:RAKE*/
-	
-	
-	
+
+
+	/**
+	 * @param index an instance of GlobalIndexMem. The writer will read mapping data from term canonical from to variant
+	 * forms and output the result
+	 */
 	public ResultWriter2File(GlobalIndex index) {
 		this._index = index;
 	}

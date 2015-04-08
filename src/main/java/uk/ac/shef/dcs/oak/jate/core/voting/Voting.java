@@ -1,14 +1,18 @@
 package uk.ac.shef.dcs.oak.jate.core.voting;
 
 import uk.ac.shef.dcs.oak.jate.JATEException;
+import uk.ac.shef.dcs.oak.jate.core.feature.FeatureBuilderRefCorpusTermFrequency;
 import uk.ac.shef.dcs.oak.jate.model.Term;
 
 import java.util.*;
 import java.io.*;
 
+import org.apache.log4j.Logger;
+
 
 
 public class Voting {
+	private static final Logger _logger = Logger.getLogger(FeatureBuilderRefCorpusTermFrequency.class);
 
 	/**
 	 * Load standard jate term recognition output into a list of ranked terms. The standard output has one term on a line,
@@ -22,8 +26,9 @@ public class Voting {
 	 */
 	public List<Term> load(String path) {
 		List<Term> result = new ArrayList<Term>();
+		BufferedReader reader = null;
 		try {
-			final BufferedReader reader = new BufferedReader(new FileReader(path));
+			reader = new BufferedReader(new FileReader(path));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				line = line.trim();
@@ -34,8 +39,17 @@ public class Voting {
 				//result.add(new Term(elements[0], Double.valueOf(elements[1])));
 			}
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch ( Exception e ) {
+			_logger.error( "Error processing " + path + "; silently ignoring", e );
+		}
+		finally {
+			if ( reader != null ) {
+				try {
+					reader.close();
+				} catch ( IOException ioe ) {
+					_logger.error( "I/O Exception closing file; ignoring", ioe );
+				}
+			}
 		}
 		Collections.sort(result);
 

@@ -13,8 +13,6 @@ import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.context.ContextExtraction;
 import uk.ac.shef.dcs.oak.jate.core.nlptools.NLPToolsControllerOpenNLP;
-import uk.ac.shef.dcs.oak.jate.model.Corpus;
-import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.model.Term;
 import uk.ac.shef.dcs.oak.jate.util.Utility;

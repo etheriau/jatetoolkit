@@ -8,5 +8,8 @@ To get started:
 * To use with IntelliJ:
 	* gradle idea
 	* In IntelliJ, open the jatetoolkit.ipr
+* To use with Eclipse:
+    * gradle eclipse
+    * In Eclipse, File -> Import -> Existing Project -> this directory
 * To build:
 	* gradle

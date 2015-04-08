@@ -14,7 +14,6 @@ import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 /**

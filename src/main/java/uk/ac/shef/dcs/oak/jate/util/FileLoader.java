@@ -24,8 +24,8 @@ public class FileLoader {
 		List<File> result = new ArrayList<File>();
 
 		File[] filesAndDirs = dir.listFiles();
-		List filesDirs = Arrays.asList(filesAndDirs);
-		Iterator filesIter = filesDirs.iterator();
+		List<File> filesDirs = Arrays.asList(filesAndDirs);
+		Iterator<File> filesIter = filesDirs.iterator();
 		File file;
 		while (filesIter.hasNext()) {
 			file = (File) filesIter.next();
@@ -50,11 +50,11 @@ public class FileLoader {
 		Set<File> result = new HashSet<File>();
 
 		File[] filesAndDirs = dir.listFiles();
-		List filesDirs = Arrays.asList(filesAndDirs);
-		Iterator filesIter = filesDirs.iterator();
+		List<File> filesDirs = Arrays.asList(filesAndDirs);
+		Iterator<File> filesIter = filesDirs.iterator();
 		File file;
 		while (filesIter.hasNext()) {
-			file = (File) filesIter.next();
+			file = filesIter.next();
 			if (file.isDirectory()) {
 				result.add(file); //always add, even if directory
 				List<File> deeperList = getFolderRecursive(file);

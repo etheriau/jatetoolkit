@@ -2,10 +2,12 @@ package uk.ac.shef.dcs.oak.jate.core.feature;
 
 import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndex;
 import uk.ac.shef.dcs.oak.jate.JATEException;
+
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * A specific type of feature builder that builds an instance of FeatureRefCorpusTermFrequency. This is a dummy class
@@ -19,7 +21,7 @@ import java.io.FileReader;
 
 public class FeatureBuilderRefCorpusTermFrequency extends AbstractFeatureBuilder {
 
-	private static Logger _logger = Logger.getLogger(FeatureBuilderRefCorpusTermFrequency.class);
+	private static final Logger _logger = Logger.getLogger(FeatureBuilderRefCorpusTermFrequency.class);
 
 	private final String _refStatsPath;
 
@@ -46,8 +48,9 @@ public class FeatureBuilderRefCorpusTermFrequency extends AbstractFeatureBuilder
 	public FeatureRefCorpusTermFrequency build(GlobalIndex nullValue) throws JATEException {
 		FeatureRefCorpusTermFrequency _feature = new FeatureRefCorpusTermFrequency();
 
+		BufferedReader reader = null;
 		try{
-			final BufferedReader reader = new BufferedReader(new FileReader(_refStatsPath));
+			reader = new BufferedReader(new FileReader(_refStatsPath));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				line = line.trim();
@@ -57,7 +60,18 @@ public class FeatureBuilderRefCorpusTermFrequency extends AbstractFeatureBuilder
 			}
 
 		}
-		catch(Exception e){e.printStackTrace();}
+		catch ( Exception e ) {
+			throw new JATEException( "Error processing file", e );
+		}
+		finally {
+			if ( reader != null ) {
+				try {
+					reader.close();
+				} catch ( IOException ioe ) {
+					_logger.error( "I/O Exception closing file; ignoring", ioe );
+				}
+			}
+		}
 
 		return _feature;
 	}

@@ -4,3 +4,7 @@ build/
 jatetoolkit.iml
 jatetoolkit.ipr
 jatetoolkit.iws
+/bin/
+.classpath
+.project
+.settings/

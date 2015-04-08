@@ -1,6 +1,5 @@
 package uk.ac.shef.dcs.oak.jate.model;
 
-import java.util.List;
 import java.util.Set;
 
 /**

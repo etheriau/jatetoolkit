@@ -9,7 +9,6 @@ import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndexBuilderMem;
 import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndexMem;
 import uk.ac.shef.dcs.oak.jate.core.npextractor.CandidateTermExtractor;
 import uk.ac.shef.dcs.oak.jate.core.npextractor.NounPhraseExtractorOpenNLP;
-import uk.ac.shef.dcs.oak.jate.core.npextractor.WordExtractor;
 import uk.ac.shef.dcs.oak.jate.io.ResultWriter2File;
 import uk.ac.shef.dcs.oak.jate.model.CorpusImpl;
 import uk.ac.shef.dcs.oak.jate.model.Term;
@@ -126,10 +125,10 @@ public class AlgorithmTester {
                 //CandidateTermExtractor wordextractor = new WordExtractor(stop, lemmatizer);
 
                 //This instance of WordExtractor is needed to build word frequency data, which are required by some algorithms
-				CandidateTermExtractor wordextractor = new WordExtractor(stop, lemmatizer, false, 1);
+//				CandidateTermExtractor wordextractor = new WordExtractor(stop, lemmatizer, false, 1);
 
                 GlobalIndexBuilderMem builder = new GlobalIndexBuilderMem();
-				GlobalIndexMem wordDocIndex = builder.build(new CorpusImpl(args[0]), wordextractor);
+//				GlobalIndexMem wordDocIndex = builder.build(new CorpusImpl(args[0]), wordextractor);
 				GlobalIndexMem termDocIndex = builder.build(new CorpusImpl(args[0]), npextractor);
 
                 //Optionally, you can save the index data as HSQL databases on file system
@@ -158,14 +157,14 @@ public class AlgorithmTester {
                 /* #1 Due to use of multi-threading, this can significantly occupy your CPU and memory resources. It is
                  better to use this way on dedicated server machines, and only for very large corpus
                 * */
-                FeatureCorpusTermFrequency wordFreq =
-                        new FeatureBuilderCorpusTermFrequencyMultiThread(wordcounter, lemmatizer).build(wordDocIndex);
-				FeatureDocumentTermFrequency termDocFreq =
-                        new FeatureBuilderDocumentTermFrequencyMultiThread(wordcounter, lemmatizer).build(termDocIndex);
+//                FeatureCorpusTermFrequency wordFreq =
+//                        new FeatureBuilderCorpusTermFrequencyMultiThread(wordcounter, lemmatizer).build(wordDocIndex);
+//				FeatureDocumentTermFrequency termDocFreq =
+//                        new FeatureBuilderDocumentTermFrequencyMultiThread(wordcounter, lemmatizer).build(termDocIndex);
 				FeatureTermNest termNest =
                         new FeatureBuilderTermNestMultiThread().build(termDocIndex);
-				FeatureRefCorpusTermFrequency bncRef =
-						new FeatureBuilderRefCorpusTermFrequency(args[1]).build(null);
+//				FeatureRefCorpusTermFrequency bncRef =
+//						new FeatureBuilderRefCorpusTermFrequency(args[1]).build(null);
 				FeatureCorpusTermFrequency termCorpusFreq =
                         new FeatureBuilderCorpusTermFrequencyMultiThread(wordcounter, lemmatizer).build(termDocIndex);
 
