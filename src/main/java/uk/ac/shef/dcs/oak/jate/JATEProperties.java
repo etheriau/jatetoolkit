@@ -1,5 +1,7 @@
 package uk.ac.shef.dcs.oak.jate;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
@@ -11,6 +13,8 @@ import java.io.IOException;
 
 
 public class JATEProperties {
+    private static final Logger _logger = Logger.getLogger(JATEProperties.class);
+
     private final Properties _properties = new Properties();
     private static JATEProperties _ref = null;
 
@@ -57,13 +61,13 @@ public class JATEProperties {
             in = getClass().getResourceAsStream("/jate.properties");
             _properties.load(in);
         } catch (IOException e) {
-            e.printStackTrace();
+            _logger.error( "Error reading properites", e );
         } finally {
             if (in != null) try {
                 in.close();
                 in = null;
             } catch (IOException e) {
-                e.printStackTrace();
+                _logger.error( "Error while closing file", e );
             }
         }
     }

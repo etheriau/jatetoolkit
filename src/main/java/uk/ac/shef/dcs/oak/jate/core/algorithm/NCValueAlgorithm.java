@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.context.ContextExtraction;
@@ -25,7 +26,8 @@ import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
 */
 
 public class NCValueAlgorithm implements Algorithm{
-	
+	private static final Logger _logger = Logger.getLogger(NCValueAlgorithm.class);
+
 	private final ContextExtraction contextExtraction;
 	
 	private Set<String> CValueTerms_Variants;
@@ -176,7 +178,7 @@ public class NCValueAlgorithm implements Algorithm{
 			initialize(ncFeatureStore);
 			ContextIdentification_Terms( ncFeatureStore );
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			_logger.error( "I/O error", e1 );
 		}
 		
 		return CalculateNCValue();		

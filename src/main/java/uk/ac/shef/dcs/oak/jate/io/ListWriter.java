@@ -1,5 +1,7 @@
 package uk.ac.shef.dcs.oak.jate.io;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -11,6 +13,7 @@ import java.io.PrintWriter;
  */
 
 public class ListWriter {
+	private static final Logger _logger = Logger.getLogger(ListWriter.class);
 
 	private PrintWriter _writer;
 
@@ -18,7 +21,7 @@ public class ListWriter {
 		try {
 			_writer = new PrintWriter(new FileWriter(pathToFile));
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.error("Exception", e);
 		}
 	}
 
@@ -26,7 +29,7 @@ public class ListWriter {
 		try {
 			_writer = new PrintWriter(new FileWriter(pathToFile, append));
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.error("Exception", e);
 		}
 	}
 
@@ -34,7 +37,7 @@ public class ListWriter {
 		try {
 			_writer = new PrintWriter(new FileWriter(f, append));
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.error("Exception", e);
 		}
 	}
 

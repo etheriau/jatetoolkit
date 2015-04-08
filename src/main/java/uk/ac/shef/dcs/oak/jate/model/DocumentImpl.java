@@ -1,5 +1,6 @@
 package uk.ac.shef.dcs.oak.jate.model;
 
+import org.apache.log4j.Logger;
 import uk.ac.shef.wit.commons.UtilFiles;
 
 import java.net.URL;
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 
 public class DocumentImpl implements Document{
+   private static final Logger _logger = Logger.getLogger(DocumentImpl.class);
 
 	protected final URL _url;
 
@@ -27,7 +29,7 @@ public class DocumentImpl implements Document{
       try {
          content = UtilFiles.getContent(_url).toString();
       } catch (IOException e) {
-         e.printStackTrace();
+         _logger.error( "I/O Exception", e );
       }
       return content;
    }

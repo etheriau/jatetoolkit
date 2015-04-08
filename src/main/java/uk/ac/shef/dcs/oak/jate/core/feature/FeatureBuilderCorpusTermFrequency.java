@@ -55,7 +55,7 @@ public class FeatureBuilderCorpusTermFrequency extends AbstractFeatureBuilder {
 		try {
 			doc = new DocumentImpl(file.toURI().toURL());
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			_logger.error( "Error processing " + file, e );
 		}
 		*/
 		

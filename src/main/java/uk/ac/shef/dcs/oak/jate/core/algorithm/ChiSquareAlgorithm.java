@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import uk.ac.shef.dcs.oak.jate.JATEException;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 import uk.ac.shef.dcs.oak.jate.core.nlptools.NLPToolsControllerOpenNLP;
@@ -29,7 +30,8 @@ import uk.ac.shef.dcs.oak.jate.util.control.Lemmatizer;
  */
 
 public class ChiSquareAlgorithm implements Algorithm {
-	
+	private static final Logger _logger = Logger.getLogger(ChiSquareAlgorithm.class);
+
 	private final Map<String, Integer> cooccurence_map;	// freq(w,g) calculation => key:"term+frequentTerm" value: co-occurence freq
 	private final Map<String, Set<String>> cooccurence_list; // nw and pg calculation => key:"lemmatized term" value:"set of terms in sentences where term appears"
 	
@@ -93,8 +95,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 			
 			writer.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.error( "File not found", e );
 		}
 	      
 			
@@ -132,8 +133,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 				try {
 					sent_TermLemma.addAll(extractor.extract(sent).keySet());
 				} catch (JATEException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					_logger.error( "Error processing terms", e );
 				}
 				for(String lemma : sent_TermLemma){
 					if(frequentTerms_variants_Map.keySet().contains(lemma)){
@@ -238,7 +238,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 			generateMaps( chiFeatureStore.getCorpus() );
 		}
 		catch(IOException e){
-			e.printStackTrace();
+			_logger.error( "Error processing map", e );
 		}
 		
 		//Ankit: Output the mismatched items (only once), not required anymore (but put in as a check)

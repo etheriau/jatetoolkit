@@ -1,5 +1,6 @@
 package uk.ac.shef.dcs.oak.jate.io;
 
+import org.apache.log4j.Logger;
 import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndexMem;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 
@@ -13,6 +14,8 @@ import java.util.Set;
  * This is a helper class to output in-memory GlobalIndex objects to database HSQL persistence
  */
 public class GlobalIndexWriterHSQL {
+    private static final Logger _logger = Logger.getLogger(GlobalIndexWriterHSQL.class);
+
     private static Connection conn;
     private static final int MAX_IN_A_BATCH=5000;
 
@@ -23,7 +26,7 @@ public class GlobalIndexWriterHSQL {
             HSQLDBUtil.createJATRGlobalIndexDB(conn);
         } catch (SQLException e) {
             System.err.println("ERROR - SEVERE - Cannot establish connection to HSQL database.");
-            e.printStackTrace();
+            _logger.error("SQL Exception", e);
             System.exit(1);
         }
 
@@ -51,7 +54,7 @@ public class GlobalIndexWriterHSQL {
             pstmt.close();
         } catch (SQLException e) {
             System.err.println("SEVERE - Exception encourted while persisting Term-ID map, may have affected data integrity.");
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
         }
 
         //persist docIdMap
@@ -77,7 +80,7 @@ public class GlobalIndexWriterHSQL {
             pstmt.close();
         } catch (SQLException e) {
             System.err.println("SEVERE - Exception encourted while persisting Term-ID map, may have affected data integrity.");
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
         }
 
 
@@ -104,7 +107,7 @@ public class GlobalIndexWriterHSQL {
             pstmt.close();
         } catch (SQLException e) {
             System.err.println("SEVERE - Exception encourted while persisting Term-ID map, may have affected data integrity.");
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
         }
 
 
@@ -137,7 +140,7 @@ public class GlobalIndexWriterHSQL {
             pstmt.close();
         } catch (SQLException e) {
             System.err.println("SEVERE - Exception encourted while persisting Term-ID map, may have affected data integrity.");
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
         }
 
         //persist doc2TermMap
@@ -169,7 +172,7 @@ public class GlobalIndexWriterHSQL {
             pstmt.close();
         } catch (SQLException e) {
             System.err.println("SEVERE - Exception encourted while persisting Term-ID map, may have affected data integrity.");
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
         }
 
         //persist termId2VarIds map
@@ -201,7 +204,7 @@ public class GlobalIndexWriterHSQL {
             pstmt.close();
         } catch (SQLException e) {
             System.err.println("SEVERE - Exception encourted while persisting Term-ID map, may have affected data integrity.");
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
         }
 
 
@@ -228,7 +231,7 @@ public class GlobalIndexWriterHSQL {
             pstmt.close();
         } catch (SQLException e) {
             System.err.println("SEVERE - Exception encourted while persisting Term-ID map, may have affected data integrity.");
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
         }
 
 

@@ -33,7 +33,7 @@ public class HSQLDBUtil {
         } catch (Exception e) {
             System.err.println("ERROR SEVERE - Cannot establish database connection to JATR internal database. Please check your " +
                     "claspath to HSQL library, and database path: " + hsqldbName);
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
             System.exit(1);
         }
         return null;
@@ -46,7 +46,7 @@ public class HSQLDBUtil {
             st.execute("SHUTDOWN");
         } catch (SQLException e) {
             System.err.println("Error - Database may not be closed properly.");
-            e.printStackTrace();
+            _logger.error( "SQL Exception", e );
         } finally {
             try {
                 if ( st != null ) st.close();
@@ -342,7 +342,7 @@ public class HSQLDBUtil {
 
             return result;
         } catch (SQLException se) {
-            se.printStackTrace();
+            _logger.error( "SQL Exception", se );
             return null;
         }
     }
@@ -366,7 +366,7 @@ public class HSQLDBUtil {
 
             return result;
         } catch (SQLException se) {
-            se.printStackTrace();
+            _logger.error( "SQL Exception", se );
             return null;
         }
     }
@@ -391,7 +391,7 @@ public class HSQLDBUtil {
 
             return result;
         } catch (SQLException se) {
-            se.printStackTrace();
+            _logger.error( "SQL Exception", se );
             return null;
         }
     }
@@ -415,7 +415,7 @@ public class HSQLDBUtil {
 
             return result;
         } catch (SQLException se) {
-            se.printStackTrace();
+            _logger.error( "SQL Exception", se );
             return null;
         }
     }
@@ -440,7 +440,7 @@ public class HSQLDBUtil {
 
             return result;
         } catch (SQLException se) {
-            se.printStackTrace();
+            _logger.error( "SQL Exception", se );
             return null;
         }
     }
@@ -466,7 +466,7 @@ public class HSQLDBUtil {
 
             return result;
         } catch (SQLException se) {
-            se.printStackTrace();
+            _logger.error( "SQL Exception", se );
             return null;
         } catch(MalformedURLException me){
             return null;

@@ -106,7 +106,7 @@ public class Voting {
 			}
 			pw.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.error( "Error processing output", e );
 		}
 	}
 
