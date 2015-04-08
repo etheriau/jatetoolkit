@@ -1,4 +1,4 @@
-defaultTasks 'assemble javadocs'
+defaultTasks 'assemble', 'javadocs'
 
 apply plugin: 'maven'
 apply plugin: 'java'
