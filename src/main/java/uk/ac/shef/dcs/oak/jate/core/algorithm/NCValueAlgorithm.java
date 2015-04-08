@@ -74,7 +74,7 @@ public class NCValueAlgorithm implements Algorithm{
 		for (Document d : ncFeatureStore.getCorpus() ) {
 			sentLoop:
 			for (String sent: NLPToolsControllerOpenNLP.getInstance().getSentenceSplitter().sentDetect(d.getContent())) {
-				//System.out.println(sent)	;			
+				//_logger.info(sent)	;
 				sent = Utility.getModifiedSent(sent);
 				
 				Set<String> sent_CValueTermVariants = new HashSet<String>();

@@ -79,7 +79,7 @@ public class NCValueIO{
 				  }
 				  else
 				  {
-					  System.out.println("something more than term and confidence is available...invalid.");
+					  _logger.info("something more than term and confidence is available...invalid.");
 				  }
 			  
 			  }

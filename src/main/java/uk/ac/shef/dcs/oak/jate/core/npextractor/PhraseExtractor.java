@@ -77,13 +77,13 @@ public class PhraseExtractor {
 		    	//Ankit: To handle special cases where references end the sentence .[21] etc.
 		    	if(temp_w.matches("^\\.\\[[0-9]*.*")){
 		    		//Ankit: debug
-		    		//System.out.println(flopCount+" term is:"+temp_w);
+		    		//_logger.info(flopCount+" term is:"+temp_w);
 		    		//flopCount++;
 		    		endFlag=true;
 		    	}
 		    	else if(temp_w.matches("^\\[?[0-9]*\\].*")) {
 		    		//Ankit: debug
-		    		//System.out.println(flopCount+" caught term is:"+temp_w);
+		    		//_logger.info(flopCount+" caught term is:"+temp_w);
 		    		//flopCount++;
 		    		continue;
 		    	}

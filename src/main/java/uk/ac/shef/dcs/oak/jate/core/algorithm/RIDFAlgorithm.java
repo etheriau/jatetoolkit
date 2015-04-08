@@ -23,7 +23,7 @@ public class RIDFAlgorithm implements Algorithm {
 
 		for(String s: ridfFeatureStore.getTerms()){
 /*			if(tfidfFeatureStore.getTermFreqInCorpus(s)==0 || tfidfFeatureStore.getDocFreq(s)==0){
-				System.out.println("ZERO: "+s+"-tf:"+tfidfFeatureStore.getTermFreqInCorpus(s)+", df:"+tfidfFeatureStore.getDocFreq(s));
+				_logger.info("ZERO: "+s+"-tf:"+tfidfFeatureStore.getTermFreqInCorpus(s)+", df:"+tfidfFeatureStore.getDocFreq(s));
 			}*/
 
             int tfInCorpus = ridfFeatureStore.getTermFreqInCorpus(s);

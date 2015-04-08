@@ -73,11 +73,11 @@ public class ChiSquareAlgorithm implements Algorithm {
 			for(Term t: candidates){
 				if(t.getConfidence() >= JATEProperties.getInstance().getMinFreq()) {  
 					ngrams.add(t);
-					//System.out.println(t.getConcept() + " + " + t.getConfidence());
+					//_logger.info(t.getConcept() + " + " + t.getConfidence());
 				}
 			
 				//Anurag to print the n-grams
-				//System.out.println("The n--gram is:" + t.getConcept());
+				//_logger.info("The n--gram is:" + t.getConcept());
 				writer.write(t.getConcept());
 				writer.newLine();
 			}
@@ -216,7 +216,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 				
 			}			
 		//	for(Map.Entry<String, Integer> e : cooccurence_map.entrySet()){
-				//System.out.println(e.getKey()+ " " + e.getValue());
+				//_logger.info(e.getKey()+ " " + e.getValue());
 		//	}
 		}
 	}
@@ -244,7 +244,7 @@ public class ChiSquareAlgorithm implements Algorithm {
 		//Ankit: Output the mismatched items (only once), not required anymore (but put in as a check)
 		for(String k : frequentTerms_variants_Map.keySet())
 			if(!cooccurence_list.containsKey(k))
-				System.out.println("Term ignored, parsing mismatch: "+k);
+				_logger.info("Term ignored, parsing mismatch: "+k);
 		
 		Set<Term> result = new HashSet<Term>();
 		

@@ -1,5 +1,6 @@
 package uk.ac.shef.dcs.oak.jate.core.feature;
 
+import org.apache.log4j.Logger;
 import uk.ac.shef.dcs.oak.jate.model.Document;
 import uk.ac.shef.dcs.oak.jate.core.feature.indexer.GlobalIndex;
 
@@ -20,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 public class FeatureDocumentTermFrequency extends AbstractFeature {
+    private static final Logger _logger = Logger.getLogger(FeatureDocumentTermFrequency.class);
 
     private final Map<Integer, Map<Integer, Integer>> _termInDocFreqMap = new ConcurrentHashMap<Integer, Map<Integer, Integer>>();
 
@@ -132,8 +134,10 @@ public class FeatureDocumentTermFrequency extends AbstractFeature {
             //_logger.info("Term (" + t + ") has not been indexed! Ignored.");
             return new int[0];
         } else {
-            if(_termInDocFreqMap.get(termId)==null)
-                System.out.println();
+            if(_termInDocFreqMap.get(termId)==null) {
+                _logger.info( "Unable to find " + termId );
+                return new int[0];
+            }
             Set<Integer> keys = _termInDocFreqMap.get(termId).keySet();
             int[] rs = new int[keys.size()];
             int c = 0;

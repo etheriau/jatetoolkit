@@ -102,9 +102,9 @@ public class TermExFeatureWrapper extends AbstractFeatureWrapper {
                         //however, there may be the case where only canonical forms of words have been processed
                         //and stored in a GlobalIndex
             //find corresponding canonical form
-            //System.out.println("Searching for alternative canonical form for "+word);
+            //_logger.info("Searching for alternative canonical form for "+word);
             int termid=_wordFreq.getGlobalIndex().retrieveCanonicalOfTermVariant(word);
-            //System.out.println("term id "+termid);
+            //_logger.info("term id "+termid);
             freq=_wordFreq.getTermFreq(termid);
         }
 

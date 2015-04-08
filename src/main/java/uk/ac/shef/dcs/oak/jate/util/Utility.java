@@ -46,7 +46,7 @@ public class Utility{
 			lemma = lemmatizer.normalize(stopremoved.toLowerCase().trim());
 		//Ankit: unnecessary output information
 		//else{
-		//	System.out.println("null lemma" + context.trim());
+		//	_logger.info("null lemma" + context.trim());
 		//}
 		return lemma;
 	}
@@ -70,15 +70,15 @@ public class Utility{
 		for(String variant: variants) {
 			//Ankit: testing
 //			if(sent.contains("learn") && variant.contains("learn"))
-//				System.out.println("Sent: "+sent+"\nVariant: "+variant);
+//				_logger.info("Sent: "+sent+"\nVariant: "+variant);
 			
 			if(sent.contains(variant)) {
 				//Ankit: testing
 //				if(sent.contains("learn") && variant.equals("learn")){
-//					System.out.println("Sent: "+sent+"\nVariant: "+variant);
-//					System.out.println("char before check: "+(sent.charAt(sent.indexOf(variant)-1)==' '));
-//					System.out.println("char after check: "+(sent.charAt(sent.indexOf(variant)+variant.length())));
-//					System.out.println("check sentence length: "+(sent.indexOf(variant)+variant.length()<sent.length()));
+//					_logger.info("Sent: "+sent+"\nVariant: "+variant);
+//					_logger.info("char before check: "+(sent.charAt(sent.indexOf(variant)-1)==' '));
+//					_logger.info("char after check: "+(sent.charAt(sent.indexOf(variant)+variant.length())));
+//					_logger.info("check sentence length: "+(sent.indexOf(variant)+variant.length()<sent.length()));
 //				}
 			
 				//Ankit: Fix, it was skipping 'learn' if 'learning' occurred before it in a sentence, and similar cases
@@ -91,7 +91,7 @@ public class Utility{
 					TermVariants_Sent.add(variant);						
 					//Ankit: testing
 //					if(variant.equals("learn"))
-//						System.out.println("Sent Variant Added: "+variant);
+//						_logger.info("Sent Variant Added: "+variant);
 				}
 			}
 		}

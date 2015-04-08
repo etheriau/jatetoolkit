@@ -91,7 +91,7 @@ public class ContextExtraction{
 					if( ContextWords.size() > 0 ){ 
 						//Ankit: added extra parameters to avoid multiple memory allocations
 						CreateContext_To_TermMap(Utility.getLemmatizedWordSet(ContextWords, stoplist, lemmatizer), getCanonicalTermSet(sent_TopTermVariants));
-						//System.out.println(i);
+						//_logger.info(i);
 					}
 				}
 			}
@@ -107,7 +107,7 @@ public class ContextExtraction{
 				ContextWord_Map = new HashMap<String, Double>();
 			ContextWord_Map.put(e.getKey(), weight);	
 		}	
-		//System.out.println("Weights calculated");
+		//_logger.info("Weights calculated");
 	}
 
 	

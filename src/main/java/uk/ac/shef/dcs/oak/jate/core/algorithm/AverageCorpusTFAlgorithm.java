@@ -19,7 +19,7 @@ public class AverageCorpusTFAlgorithm implements Algorithm{
 
 		for(String s: burstnessFeatureStore.getTerms()){
 /*			if(tfidfFeatureStore.getTermFreqInCorpus(s)==0 || tfidfFeatureStore.getDocFreq(s)==0){
-				System.out.println("ZERO: "+s+"-tf:"+tfidfFeatureStore.getTermFreqInCorpus(s)+", df:"+tfidfFeatureStore.getDocFreq(s));
+				_logger.info("ZERO: "+s+"-tf:"+tfidfFeatureStore.getTermFreqInCorpus(s)+", df:"+tfidfFeatureStore.getDocFreq(s));
 			}*/
 			double tf =  (double)burstnessFeatureStore.getTermFreq(s);
 			double df_i =  (double)burstnessFeatureStore.getDocFreq(s) ==0?1:(double)burstnessFeatureStore.getDocFreq(s);

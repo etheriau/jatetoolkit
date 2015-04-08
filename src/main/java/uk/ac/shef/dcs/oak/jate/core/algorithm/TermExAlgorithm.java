@@ -74,7 +74,7 @@ public class TermExAlgorithm implements Algorithm {
 			double DC = sum;
 			double LC = (T * Math.log(gFeatureStore.getTermFreq(s) + 1) * gFeatureStore.getTermFreq(s)) / SUMfwi;
 
-			//System.out.println(DR+"------"+DC+"------"+LC);
+			//_logger.info(DR+"------"+DC+"------"+LC);
 			score = _alpha * DR + _beta * DC + _zeta * LC;
 			result.add(new Term(s, score));
 		}

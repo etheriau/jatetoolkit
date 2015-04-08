@@ -151,7 +151,7 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
 
 
     public Map<String, Set<String>> extract(String content) throws JATEException {
-      //  System.out.println(content+ "||" );
+      //  _logger.info(content+ "||" );
     	Map<String, Set<String>> nouns = new HashMap<String, Set<String>>();
         try {
             String[] tokens = NLPToolsControllerOpenNLP.getInstance().getTokeniser().tokenize(content);
@@ -187,7 +187,7 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
                     }
                 }
             }
-          //  System.out.println("\n");
+          //  _logger.info("\n");
         } catch (IOException wte) {
             throw new JATEException(wte);
         }
@@ -198,7 +198,7 @@ public class NounPhraseExtractorOpenNLP extends CandidateTermExtractor {
     private String[] chunkNPs(String[] tokens, String[] pos) throws IOException {
         String[] phrases = NLPToolsControllerOpenNLP.getInstance().getPhraseChunker().chunk(tokens, pos);
        /* for(int i=0;i<phrases.length;i++){
-        	System.out.println(tokens[i]+ " "+ phrases[i]);
+        	_logger.info(tokens[i]+ " "+ phrases[i]);
         }
         */
         List<String> candidates = new ArrayList<String>();

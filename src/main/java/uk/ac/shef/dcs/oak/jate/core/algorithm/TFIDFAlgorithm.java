@@ -27,7 +27,7 @@ public class TFIDFAlgorithm implements Algorithm {
 
 		for(String s: tfidfFeatureStore.getTerms()){
 /*			if(tfidfFeatureStore.getTermFreq(s)==0 || tfidfFeatureStore.getDocFreq(s)==0){
-				System.out.println("ZERO: "+s+"-tf:"+tfidfFeatureStore.getTermFreq(s)+", df:"+tfidfFeatureStore.getDocFreq(s));
+				_logger.info("ZERO: "+s+"-tf:"+tfidfFeatureStore.getTermFreq(s)+", df:"+tfidfFeatureStore.getDocFreq(s));
 			}*/
 			double tf =  (double)tfidfFeatureStore.getTermFreq(s)/((double) tfidfFeatureStore.getTotalTermFreq()+1.0);
 			double df_i =  (double)tfidfFeatureStore.getDocFreq(s) ==0?1:(double)tfidfFeatureStore.getDocFreq(s);

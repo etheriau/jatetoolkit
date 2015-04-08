@@ -80,7 +80,7 @@ public class Voting {
 			}
 			result.add(new Term(t.getConcept(), score));
 			count++;
-			if(count%1000==0)System.out.println(t.getConcept()+count);
+			if(count%1000==0)_logger.info(t.getConcept()+count);
 		}
 
 		Collections.sort(result);

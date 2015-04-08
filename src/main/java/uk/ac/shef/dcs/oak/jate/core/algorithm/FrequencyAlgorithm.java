@@ -24,7 +24,7 @@ public class FrequencyAlgorithm implements Algorithm{
 
 		for(String s: fFeatureStore.getTerms()){
 /*			if(tfidfFeatureStore.getTermFreq(s)==0 || tfidfFeatureStore.getDocFreq(s)==0){
-				System.out.println("ZERO: "+s+"-tf:"+tfidfFeatureStore.getTermFreq(s)+", df:"+tfidfFeatureStore.getDocFreq(s));
+				_logger.info("ZERO: "+s+"-tf:"+tfidfFeatureStore.getTermFreq(s)+", df:"+tfidfFeatureStore.getDocFreq(s));
 			}*/
 			double tf =  (double)fFeatureStore.getTermFreq(s);
 			result.add(new Term(s,tf));
