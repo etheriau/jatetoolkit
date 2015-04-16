@@ -3,6 +3,7 @@ package uk.ac.shef.dcs.oak.jate.util.control;
 import dragon.nlp.tool.lemmatiser.EngLemmatiser;
 import uk.ac.shef.dcs.oak.jate.JATEProperties;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -66,7 +67,54 @@ public class Lemmatizer extends Normalizer {
 
 
 	private void init() {
-		lemmatizer = new EngLemmatiser(JATEProperties.getInstance().getWorkPath()+"/lemmatizer", false, true);
+		// Initializes the temporary directory if required.
+		final JATEProperties instance = JATEProperties.getInstance();
+		String path = instance.getNLPPath();
+		if ( path.startsWith( "jar:" ) ) {
+			String dir = instance.getWorkPath() + File.separator + "lemmatizer";
+			path = dir;
+			File directory = new File(dir);
+			if ( !directory.exists() ) {
+				if ( !directory.mkdirs() ) {
+					throw new UnsupportedOperationException("Could not initialize " + directory);
+				}
+				for ( String file : new String[]{ "adj.exc", "adj.index", "adv.exc", "adv.index", "noun.exc", "stopwordexc.list", "umlserror.list", "verb.exc", "verb.index" } ) {
+					try {
+						InputStream input = null;
+						OutputStream output = null;
+						try {
+							input = instance.getNLPInputStream( "lemmatizer" + File.separator + file );
+							if ( input == null ) {
+								throw new IOException( "Unable to read: " + file );
+							}
+							output = new FileOutputStream( dir + File.separator + file );
+							byte [] bytes = new byte[ 4096 ];
+							while ( true ) {
+								int len = input.read( bytes );
+								if ( len == -1 ) {
+									break;
+								}
+								output.write( bytes, 0, len );
+							}
+						} finally {
+							try {
+								if ( input != null ) {
+									input.close();
+								}
+							} finally {
+								if ( output != null ) {
+									output.close();
+								}
+							}
+						}
+					} catch ( IOException ioe ) {
+						throw new UnsupportedOperationException( "Unable to copy data", ioe );
+					}
+				}
+			}
+		}
+
+		lemmatizer = new EngLemmatiser( path, false, true );
 		tagLookUp.put("NN", 1);
 		tagLookUp.put("NNS", 1);
 		tagLookUp.put("NNP", 1);

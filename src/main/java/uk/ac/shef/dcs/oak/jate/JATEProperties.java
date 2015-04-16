@@ -76,17 +76,28 @@ public class JATEProperties {
         return _properties.getProperty(key);
     }
 
-    public String getWorkPath() {
-        return "/tmp";
+    public void setProperty( String key, String value ) {
+        _properties.setProperty( key, value );
     }
 
-    private String getNLPPath() {
+    public String getWorkPath() {
+        return System.getProperty( "java.io.tmpdir" );
+    }
+
+    public String getNLPPath() {
         return getProperty(NLP_PATH);
     }
+
     public InputStream getNLPInputStream( String resource ) throws IOException {
         String path = getNLPPath();
+        while ( path.endsWith( "/" ) || path.endsWith( "\\" ) ) {
+            path = path.substring( 0, path.length() - 1 );
+        }
+        while ( resource.startsWith("/") || resource.startsWith( "\\" ) ) {
+            resource = resource.substring( 1 );
+        }
         if ( path.startsWith( "jar:" ) ) {
-            return getClass().getClassLoader().getResourceAsStream( path.substring( "jar:".length() )  + File.separator + resource );
+            return getClass().getResourceAsStream( File.separator + path.substring( "jar:".length() )  + File.separator + resource );
         }
         return new FileInputStream( path + File.separator + resource );
     }
