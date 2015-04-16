@@ -6,7 +6,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 
 group = "uk.ac.shef.dcs.oak.jate.eyt"
-archivesBaseName = 'maple'
+archivesBaseName = 'jatetoolkit'
 version = "2.0Alpha_eyt"
 status = 'integration'
 
