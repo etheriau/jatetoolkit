@@ -13,3 +13,5 @@ To get started:
     * In Eclipse, File -> Import -> Existing Project -> this directory
 * To build:
 	* gradle
+
+This project has been moved to https://bitbucket.org/etheriau/jatetoolkit
